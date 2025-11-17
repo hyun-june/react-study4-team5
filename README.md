@@ -29,9 +29,9 @@
 
 ## Team
 
-| <img src="" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/154667059?v=4" width="150" height="150"/> | <img src="" width="150" height="150"/> | <img src="" width="150" height="150"/> |
-| :------------------------------------: | :-----------------------------------------------------------------------------------------: | :------------------------------------: | :------------------------------------: |
-|         []()<br/>Product Owner         |                 [@hyun-june](https://github.com/hyun-june)<br/>Scrum Master                 |           []()<br/>Developer           |           []()<br/>Developer           |
+| <img src="https://avatars.githubusercontent.com/u/154816149?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/154667059?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/103065628?v=4" width="150" height="150"/> | <img src="https://avatars.githubusercontent.com/u/61533589?v=4" width="150" height="150"/> |
+| :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
+|              [@victoryalhj](https://github.com/victoryalhj)<br/>Product Owner               |                 [@hyun-june](https://github.com/hyun-june)<br/>Scrum Master                 |                   [@JiHyoung](https://github.com/JiHy0ung)<br/>Developer                    |                    [@joooo24](https://github.com/joooo24)<br/>Developer                    |
 
 <br/>
 
@@ -55,6 +55,33 @@
 
 - 21:30분
   <br/><br/>
+
+## 회의록
+
+<details>
+  <summary><b>2025년 11월 16일 일요일 22:00 (1일차) </b></summary>
+  <ul> 
+    <li>주제 생각해오기</li>
+    <li>피그마 만들기</li>
+    <li>깃 만들기</li>
+  </ul>
+
+</details>
+<details>
+  <summary><b>2025년 11월 17일 월요일 14:30 (2일차)</b></summary>
+  <ul>
+    <li>여행 플래너로 주제 확정</li>
+    <li>
+        사용 라이브러리 의견 나누기
+        <ol>
+          <li>Zustand</li>
+          <li>React Router</li>
+          <li>MUI</li>
+      </ol>
+     </li>
+    <li>각 컨베션 및 폴더 구조 정함</li>
+  </ul>
+</details>
 
 ## 개발 일지
 
