@@ -72,13 +72,13 @@
   <ul>
     <li>여행 플래너로 주제 확정</li>
     <li>
-        사용 라이브러리 의견 나누기
-        <ol>
-          <li>Zustand</li>
-          <li>React Router</li>
-          <li>MUI</li>
-      </ol>
-     </li>
+      사용 라이브러리 정하기
+      <ul>
+        <li>Zustand</li>
+        <li>React Router</li>
+        <li>MUI</li>
+      </ul>
+    </li>
     <li>각 컨베션 및 폴더 구조 정함</li>
   </ul>
 </details>
