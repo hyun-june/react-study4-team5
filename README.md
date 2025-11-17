@@ -16,7 +16,7 @@
 
 ### 주제
 
-주제
+글로벌 여행 플래너
 
 ### 목적
 
@@ -47,14 +47,15 @@
 
 ## API
 
-- 사용하는 api
-
-  <br/><br/>
+- REST Countries
+- OpenWeatherMap
+- ExchangeRate.host
+- Unsplash API
+- AI API(미정)
 
 ## 스탠드업 미팅
 
 - 21:30분
-  <br/><br/>
 
 ## 회의록
 
@@ -80,6 +81,21 @@
       </ul>
     </li>
     <li>각 컨베션 및 폴더 구조 정함</li>
+  </ul>
+</details>
+<details>
+  <summary><b>2025년 11월 17일 월요일 20:30 (2일차)</b></summary>
+  <ul>
+    <li>
+      역할 분배
+      <ul>
+        <li>지형님  - 환율 api + 헤더 /푸터</li>
+        <li>현정님 - 이미지 api + 상세 페이지 레이아웃</li>
+        <li>희정님 - 국가 정보 api  + 메인 페이지 레이아웃</li>
+        <li>현준님 - 날씨 api, AI API + 로그인 페이지 레이아웃</li>
+      </ul>
+    </li>
+    <li>다음 회의에 더 자세한 역할 분배 필요</li>
   </ul>
 </details>
 
