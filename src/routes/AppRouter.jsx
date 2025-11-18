@@ -1,16 +1,21 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Cities from "./../pages/Cities";
 import CityDetail from "./../pages/CityDetail";
 import Login from "./../pages/Login";
+import CountrySearch from "../pages/CountrySearch";
+import AppLayout from "../layout/AppLayout"; 
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/cities" element={<Cities />} />
-      <Route path="/city/detail" element={<CityDetail />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<AppLayout/>}>
+        <Route index element={<Home />} />
+        <Route path="/cities" element={<Cities />} />
+        <Route path="/city/detail" element={<CityDetail />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/country" element={<CountrySearch />} />
+      </Route>
     </Routes>
   );
 };

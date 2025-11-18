@@ -1,1 +1,10 @@
 @import "./reset.css";
+
+.homepage-area {
+  height: 700px;
+  width: 100%;
+}
+.homepage-area img {
+  width: 100%;
+  height: 100%;
+}
