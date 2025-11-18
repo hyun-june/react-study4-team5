@@ -2,7 +2,8 @@ import styled from "@emotion/styled";
 import { getWeatherByCity } from "../utils/apis/weatherAPI";
 import { Box, Button, FormGroup, TextField } from "@mui/material";
 import { useLoginStore } from "../store/useLoginStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAi } from "../utils/apis/geminiAPI";
 // import { getWeatherApi } from "../utils/apis/weatherAPI";
 
 const LoginInputGroup = styled(FormGroup)({
@@ -42,6 +43,9 @@ const Login = () => {
   const handleLogin = () => {
     login(id, password);
   };
+  useEffect(() => {
+    getAi();
+  }, []);
 
   return (
     <Box
