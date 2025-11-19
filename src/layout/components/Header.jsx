@@ -17,15 +17,16 @@ const HeaderContainer = styled(Box)({
   paddingInline: 16,
   margin: 16,
   backdropFilter: "blur(3px)",
-  backgroundColor: "rgba(255, 255, 255, 0.1)",
+  backgroundColor: "rgba(100, 100, 100, 0.1)",
   boxShadow:
-    "-4px -4px 8px rgba(255, 255, 255, 0.1), 4px 4px 10px rgba(255, 255, 255, 0.1)",
+    "-4px -4px 8px rgba(100, 100, 100, 0.1), 4px 4px 10px rgba(100, 100, 100, 0.1)",
 });
 
 const LogoTitle = styled(Typography)({
   color: "white",
   fontWeight: "900",
   fontSize: "24px",
+  cursor: "pointer ",
 });
 
 const HeaderMenuContainer = styled(Box)({
@@ -77,16 +78,17 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <LogoTitle>Logo Title</LogoTitle>
-      <HeaderMenuContainer>
-        <HeaderMenuButton onClick={() => navigate("/")}>Home</HeaderMenuButton>
-        <HeaderMenuButton onClick={() => navigate("/cities")}>
-          Cities
-        </HeaderMenuButton>
-        <HeaderMenuButton onClick={() => navigate("/")}>
-          AI Bot
-        </HeaderMenuButton>
-      </HeaderMenuContainer>
+      <Box display={"flex"} gap={3}>
+        <LogoTitle onClick={() => navigate("/")}>Travel Now</LogoTitle>
+        <HeaderMenuContainer>
+          <HeaderMenuButton onClick={() => navigate("/")}>
+            Home
+          </HeaderMenuButton>
+          <HeaderMenuButton onClick={() => navigate("/cities")}>
+            Cities
+          </HeaderMenuButton>
+        </HeaderMenuContainer>
+      </Box>
       <HeaderIconBox>
         <HeaderSearchBox>
           <SearchIcon fontSize="small" sx={{ color: "white" }} />
@@ -96,6 +98,7 @@ const Header = () => {
           fontSize="small"
           sx={{ color: "white" }}
           onClick={() => navigate("/login")}
+          cursor={"pointer"}
         />
       </HeaderIconBox>
     </HeaderContainer>
