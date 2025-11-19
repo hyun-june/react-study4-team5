@@ -77,7 +77,7 @@ const Footer = () => {
           </Typography>
           <DeveloperInfo>
             {developers.map(({ name, url }) => (
-              <DevelopersInfo name={name} url={url} />
+              <DevelopersInfo name={name} url={url} key={name} />
             ))}
           </DeveloperInfo>
         </Box>

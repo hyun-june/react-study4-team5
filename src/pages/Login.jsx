@@ -4,7 +4,7 @@ import { Box, Button, FormGroup, TextField } from "@mui/material";
 import { useLoginStore } from "../store/useLoginStore";
 import { useEffect, useState } from "react";
 import { getAi } from "../utils/apis/geminiAPI";
-import FloatingAiButton from "../components/FloatingAiButton";
+
 // import { getWeatherApi } from "../utils/apis/weatherAPI";
 
 const LoginInputGroup = styled(FormGroup)({
@@ -71,7 +71,6 @@ const Login = () => {
         />
         <LoginButton onClick={handleLogin}>Login</LoginButton>
       </LoginInputGroup>
-      <FloatingAiButton />
     </Box>
   );
 };
