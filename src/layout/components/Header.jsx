@@ -13,18 +13,17 @@ const HeaderContainer = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  paddingBlock: 8,
-  paddingInline: 16,
-  margin: 16,
+  paddingBlock: "1.5rem",
+  paddingInline: "2rem",
   backdropFilter: "blur(3px)",
   backgroundColor: "rgba(100, 100, 100, 0.1)",
-  boxShadow:
-    "-4px -4px 8px rgba(100, 100, 100, 0.1), 4px 4px 10px rgba(100, 100, 100, 0.1)",
+  boxShadow: "4px 4px 10px rgba(100, 100, 100, 0.1)",
   zIndex: 1000,
 });
 
 const LogoTitle = styled(Typography)({
   color: "white",
+  fontFamily: "Pretendard",
   fontWeight: "900",
   fontSize: "24px",
   cursor: "pointer ",
@@ -37,6 +36,8 @@ const HeaderMenuContainer = styled(Box)({
 
 const HeaderMenuButton = styled(Button)({
   color: "white",
+  fontFamily: "Pretendard",
+  fontWeight: "300",
   fontSize: "12px",
 });
 
@@ -59,7 +60,7 @@ const HeaderSearchBox = styled(Box)({
 });
 
 const HeaderSearch = styled(TextField)({
-  // borderBottom: "1px solid white",
+  fontFamily: "Pretendard",
   "& .MuiInputBase-root": {
     height: "24px",
     width: "100px",
