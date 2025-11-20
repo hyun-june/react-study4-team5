@@ -15,7 +15,6 @@ const Home = () => {
     { country: "Thailand", city: "Bangkok" },
     { country: "Canada", city: "Vancouver" },
   ];
-
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -63,6 +62,7 @@ const Home = () => {
           }}
         />
       </Box>
+
       <Box
         sx={{
           display: "flex",
@@ -73,14 +73,13 @@ const Home = () => {
           mt: 4,
         }}
       >
-        <Typography variant="h3" component="h3">
-          가장 인기있는 여행지
+        <Typography variant="h3" component="h2">
+          인기 여행지
         </Typography>
-        {/* <Typography variant="h3" component="h2">
-          Popular Tours
-        </Typography> */}
       </Box>
-      <Box sx={{ p: 2, mb: 10 }}>
+
+      <Box sx={{ p: 2, mb: 5 }}>
+        {" "}
         <Carousel
           swipeable={true}
           draggable={true}
@@ -101,10 +100,7 @@ const Home = () => {
               key={city.city}
               sx={{ display: "flex", justifyContent: "center", p: 1 }}
             >
-              <TravelCard
-                countryName={city.country}
-                cityName={city.city}
-              ></TravelCard>
+              <TravelCard countryName={city.country} cityName={city.city} />
             </Box>
           ))}
         </Carousel>
