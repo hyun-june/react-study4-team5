@@ -1,12 +1,12 @@
 import { styled } from "@mui/material/styles";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
-
+import LogoutIcon from "@mui/icons-material/Logout";
 import TravelNowLogo from "../../assets/TravelNow_Logo_white.png";
+import { useLoginStore } from "../../store/useLoginStore";
 
 const HeaderContainer = styled(Box)({
   position: "fixed",
@@ -108,6 +108,7 @@ const MobileMenu = styled(Box)(({ theme }) => ({
 
 const Header = () => {
   const navigate = useNavigate();
+  const { isLogin, logout } = useLoginStore();
 
   return (
     <HeaderContainer>
@@ -130,12 +131,20 @@ const Header = () => {
           <SearchIcon fontSize="small" sx={{ color: "white" }} />
           <HeaderSearch />
         </HeaderSearchBox>
-        <LoginIcon
-          fontSize="small"
-          sx={{ color: "white" }}
-          onClick={() => navigate("/login")}
-          cursor={"pointer"}
-        />
+        {isLogin ? (
+          <LogoutIcon
+            sx={{ color: "white" }}
+            cursor={"pointer"}
+            onClick={logout}
+          />
+        ) : (
+          <LoginIcon
+            fontSize="small"
+            sx={{ color: "white" }}
+            onClick={() => navigate("/login")}
+            cursor={"pointer"}
+          />
+        )}
       </HeaderIconBox>
       <MobileMenu>
         <HeaderMenuButton>
