@@ -20,6 +20,7 @@ const HeaderContainer = styled(Box)({
   backgroundColor: "rgba(100, 100, 100, 0.1)",
   boxShadow:
     "-4px -4px 8px rgba(100, 100, 100, 0.1), 4px 4px 10px rgba(100, 100, 100, 0.1)",
+  zIndex: 1000,
 });
 
 const LogoTitle = styled(Typography)({
