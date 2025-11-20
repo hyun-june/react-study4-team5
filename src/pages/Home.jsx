@@ -1,7 +1,40 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import CurrencyConverter from "../components/CurrencyConverter";
+import TravelCard from "../components/TravelCard";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 const Home = () => {
+  const cities = [
+    { country: "France", city: "Paris" },
+    { country: "Japan", city: "Tokyo" },
+    { country: "Brazil", city: "Rio de Janeiro" },
+    { country: "USA", city: "New York" },
+    { country: "Italy", city: "Rome" },
+    { country: "Spain", city: "Barcelona" },
+    { country: "Thailand", city: "Bangkok" },
+    { country: "Canada", city: "Vancouver" },
+  ];
+
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 4,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
+
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -30,6 +63,53 @@ const Home = () => {
           }}
         />
       </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          mb: 4,
+          mt: 4,
+        }}
+      >
+        <Typography variant="h3" component="h3">
+          가장 인기있는 여행지
+        </Typography>
+        {/* <Typography variant="h3" component="h2">
+          Popular Tours
+        </Typography> */}
+      </Box>
+      <Box sx={{ p: 2, mb: 10 }}>
+        <Carousel
+          swipeable={true}
+          draggable={true}
+          showDots={true}
+          responsive={responsive}
+          ssr={true}
+          infinite={true}
+          autoPlay={false}
+          keyBoardControl={true}
+          customTransition="all .5s"
+          transitionDuration={500}
+          containerClass="carousel-container"
+          dotListClass="custom-dot-list-style"
+          itemClass="carousel-item-padding-40-px"
+        >
+          {cities.map((city) => (
+            <Box
+              key={city.city}
+              sx={{ display: "flex", justifyContent: "center", p: 1 }}
+            >
+              <TravelCard
+                countryName={city.country}
+                cityName={city.city}
+              ></TravelCard>
+            </Box>
+          ))}
+        </Carousel>
+      </Box>
+
       <CurrencyConverter />
     </Box>
   );
