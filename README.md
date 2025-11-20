@@ -126,6 +126,12 @@
     <li>희정님 - 리스트 페이지 업무 분담</li>
   </ul>
 </details>
+<details>
+  <summary><b>2025년 11월 20일 목요일 20:00 (5일차)</b></summary>
+  <ul>
+    <li>진행 사항 체크</li>
+  </ul>
+</details>
 
 ## 개발 일지
 
@@ -250,7 +256,7 @@
       <summary><b>Done</b></summary>
         <div>
          <ul>
-                  <li>
+            <li>
               지형님 - 환율 계산기 컴포넌트 개발 완료
             </li>
             <li>
@@ -275,8 +281,8 @@
         <div>
          <ul>
           <li>
-              dev 브랜치 테스트 배포 완료
-            </li>
+              진행 사항 공유
+          </li>
          </ul> 
         </div>
     </details>
@@ -285,7 +291,11 @@
         <div>
          <ul>
        <li>
-            </li>
+          <li>지형님 - 메인 페이지 반응 형 및 검색 기능 구현</li>
+                <li>현정님 - city list 페이지 개발</li>
+                <li>희정님 - detail 페이지 개발</li>
+                <li>현준님 - AI 챗 및 로그인 페이지 디자인 수정</li>
+        </li>
          </ul> 
         </div>
     </details>  
