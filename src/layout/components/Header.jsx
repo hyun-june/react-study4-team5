@@ -5,6 +5,8 @@ import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
 
+import TravelNowLogo from "../../assets/TravelNow_Logo.png";
+
 const HeaderContainer = styled(Box)({
   position: "fixed",
   top: 0,
@@ -19,6 +21,19 @@ const HeaderContainer = styled(Box)({
   backgroundColor: "rgba(100, 100, 100, 0.1)",
   boxShadow: "4px 4px 10px rgba(100, 100, 100, 0.1)",
   zIndex: 1000,
+});
+
+const LogoBox = styled(Box)({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "0.5rem",
+});
+
+const LogoImg = styled(Box)({
+  display: "flex",
+  width: "1.625rem",
+  height: "1.625rem",
 });
 
 const LogoTitle = styled(Typography)({
@@ -81,7 +96,10 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Box display={"flex"} gap={3}>
-        <LogoTitle onClick={() => navigate("/")}>Travel Now</LogoTitle>
+        <LogoBox>
+          <LogoImg component="img" src={TravelNowLogo} />
+          <LogoTitle onClick={() => navigate("/")}>Travel Now</LogoTitle>
+        </LogoBox>
         <HeaderMenuContainer>
           <HeaderMenuButton onClick={() => navigate("/")}>
             Home
