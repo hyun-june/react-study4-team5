@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { Typography, Card, CardMedia, CardContent, Container } from "@mui/material";
 
-const Wrapper = styled(Container)({
-    padding: "100px 0 32px",
+const Wrapper = styled("section")({
+    margin: "100px 0 32px",
     width: "100%",
 });
 

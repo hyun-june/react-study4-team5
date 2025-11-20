@@ -1,27 +1,27 @@
 import { useMemo } from "react";
 import { styled } from "@mui/material/styles";
-import { Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { useGetExchangeRateQuery } from "../../hooks/useGetExchangeRate";
 import { useGetWeatherQuery } from "../../hooks/useGetWeather";
 import { useGetCountryQuery } from "../../hooks/useGetCountry";
 
-const Wrapper = styled(Container)({
+const Wrapper = styled("div")({
     position: "relative",
-    padding: "100px 0 32px",
     width: "100%",
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    color: "#f9f9f9",   
-});  
+    padding: "80px 0 32px",
+    gap: "20px"
+});
 
 const ImgBox = styled("div")({
+    height: "520px",
+    borderRadius: "32px",
     display: "flex",
     width: "100%",
-    maxWidth: "400px",
     overflow: "hidden",
-    borderRadius: "32px",
-    color: "#f9f9f9",
+    flex: 1,
 });
 
 const InfoBox = styled("div")({
@@ -29,16 +29,9 @@ const InfoBox = styled("div")({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    // width: "100%",
-    height: "500px",
-    color: "#f9f9f9",
-});
-
-const StatusBox = styled("div")({
     width: "100%",
-    padding: "40px 0",
-    textAlign: "center",
-    color: "#f9f9f9",
+    height: "520px",
+    flex: 1
 });
 
 const CityInfo = ({ photos = [], keyword = "" }) => {
@@ -74,31 +67,25 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
 
     if (!mainPhoto) {
         return (
-            <StatusBox>
-                <Typography variant="body2" color="text.secondary">
-                    표시할 이미지가 없습니다.
-                </Typography>
-            </StatusBox>
+            <Box sx={{ padding: "8rem" }}>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+            </Box>
         );
     }
 
     if (isLoading) {
         return (
-            <StatusBox>
-                <Typography variant="body2" color="text.secondary">
-                    도시 정보를 불러오는 중입니다...
-                </Typography>
-            </StatusBox>
+            <Box sx={{ padding: "8rem" }}>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+            </Box>
         );
     }
 
     if (hasError) {
         return (
-            <StatusBox>
-                <Typography variant="body2" color="error">
-                    도시 정보를 불러오는 중 오류가 발생했습니다.
-                </Typography>
-            </StatusBox>
+            <Box sx={{ padding: "8rem" }}>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+            </Box>
         );
     }
 
@@ -113,7 +100,7 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
             </ImgBox>
 
             <InfoBox>
-                <div>
+                <Box>
                     <Typography variant="h6" gutterBottom>
                         나라 정보
                     </Typography>
@@ -125,18 +112,18 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
                     <Typography variant="body2">
                         통화: {country?.currencies ? Object.keys(country.currencies).join(", ") : "-"}
                     </Typography>
-                </div>
+                </Box>
 
-                <div>
+                <Box>
                     <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                         환율 정보
                     </Typography>
                     <Typography variant="body2">
                         원화 10,000원 = {exchangeRate ? (10000 / exchangeRate).toFixed(2) : "-"} USD
                     </Typography>
-                </div>
+                </Box>
 
-                <div>
+                <Box>
                     <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                         현재 날씨
                     </Typography>
@@ -149,7 +136,7 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
                     </Typography>
                     <Typography variant="body2">습도: {humidity !== undefined ? `${humidity}%` : "-"}</Typography>
                     <Typography variant="body2">풍속: {windSpeed !== undefined ? `${windSpeed} m/s` : "-"}</Typography>
-                </div>
+                </Box>
             </InfoBox>
         </Wrapper>
     );

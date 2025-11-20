@@ -15,12 +15,13 @@ const Wrapper = styled("section")({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    margin: "80px auto",
+    margin: "0 auto 80px",
     padding: "0 20px",
     boxSizing: "border-box",
     fontFamily: "Pretendard, sans-serif",
     fontSize: "16px",
     color: "#333",
+    backgroundColor: "#f9f9f9"
 });
 
 const CityDetail = () => {
