@@ -1,11 +1,12 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
 
-import TravelNowLogo from "../../assets/TravelNow_Logo.png";
+import TravelNowLogo from "../../assets/TravelNow_Logo_white.png";
 
 const HeaderContainer = styled(Box)({
   position: "fixed",
@@ -38,16 +39,20 @@ const LogoImg = styled(Box)({
 
 const LogoTitle = styled(Typography)({
   color: "white",
-  fontFamily: "Pretendard",
+  fontFamily: "Stack Sans Notch",
+  letterSpacing: "-0.5px",
   fontWeight: "900",
   fontSize: "24px",
   cursor: "pointer ",
 });
 
-const HeaderMenuContainer = styled(Box)({
+const HeaderMenuContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: 16,
-});
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
 
 const HeaderMenuButton = styled(Button)({
   color: "white",
@@ -56,12 +61,15 @@ const HeaderMenuButton = styled(Button)({
   fontSize: "12px",
 });
 
-const HeaderIconBox = styled(Box)({
+const HeaderIconBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   gap: 20,
-});
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
 
 const HeaderSearchBox = styled(Box)({
   display: "flex",
@@ -89,6 +97,14 @@ const HeaderSearch = styled(TextField)({
     border: "none",
   },
 });
+
+const MobileMenu = styled(Box)(({ theme }) => ({
+  display: "flex",
+  color: "white",
+  [theme.breakpoints.up("md")]: {
+    display: "none",
+  },
+}));
 
 const Header = () => {
   const navigate = useNavigate();
@@ -121,6 +137,11 @@ const Header = () => {
           cursor={"pointer"}
         />
       </HeaderIconBox>
+      <MobileMenu>
+        <HeaderMenuButton>
+          <MenuIcon />
+        </HeaderMenuButton>
+      </MobileMenu>
     </HeaderContainer>
   );
 };
