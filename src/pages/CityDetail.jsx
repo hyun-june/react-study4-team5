@@ -1,15 +1,32 @@
 import { useLocation } from "react-router";
-import { Box, Container, Typography, CardMedia } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import { useGetImagesQuery } from "../hooks/useGetImages";
 import { useGetVideosQuery } from "../hooks/useGetVideos";
 import CityVisual from "../components/cityDetail/CityVisual";
 import CityInfo from "../components/cityDetail/CityInfo";
 import CityImageList from "../components/cityDetail/CityImageList";
 import CityVideo from "../components/cityDetail/CityVideo";
+import styled from "@emotion/styled";
+
+const Wrapper = styled("section")({
+    width: "100%",
+    maxWidth: 1280,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "80px auto",
+    padding: "0 20px",
+    boxSizing: "border-box",
+    fontFamily: "Pretendard, sans-serif",
+    fontSize: "16px",
+    color: "#333",
+});
 
 const CityDetail = () => {
-    const query = new URLSearchParams(useLocation.search);
-    const keyword = query?.get("name") || "South Korea";
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const keyword = query.get("name") || "South Korea";
 
     const {
         data: imageData,
@@ -26,7 +43,15 @@ const CityDetail = () => {
     } = useGetVideosQuery(keyword, { per_page: 6 });
 
     if (!keyword) return <Typography>검색어가 없습니다.</Typography>;
-    if (imageLoading || videoLoading) return <Typography>컨텐츠 불러오는 중...</Typography>;
+    if (imageLoading || videoLoading) {
+        return (
+            <Box>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+                <Typography>컨텐츠 불러오는 중...</Typography>
+            </Box>
+        );
+    }
+
     if (imageError) return <Typography>이미지 에러: {imageErrObj?.message}</Typography>;
     if (videoError) return <Typography>비디오 에러: {videoErrObj?.message}</Typography>;
 
@@ -34,12 +59,12 @@ const CityDetail = () => {
     const mainVideo = videoData?.videos?.[0];
 
     return (
-        <Container sx={{ py: 4, backgroundColor: "#222" }}>
+        <Wrapper className="city-detail-page">
             <CityVisual keyword={keyword} photos={photos} />
             <CityInfo keyword={keyword} photos={photos} />
             <CityImageList keyword={keyword} photos={photos} />
             <CityVideo keyword={keyword} mainVideo={mainVideo} />
-        </Container>
+        </Wrapper>
     );
 };
 
