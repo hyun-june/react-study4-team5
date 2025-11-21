@@ -8,6 +8,8 @@ import HttpsIcon from "@mui/icons-material/Https";
 import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useNavigate } from "react-router";
+
+import { useToastStore } from "../store/useToastStore";
 // import { getWeatherApi } from "../utils/apis/weatherAPI";
 
 const LoginInputGroup = styled(FormGroup)(({ theme }) => ({
@@ -77,6 +79,8 @@ const LoginButton = styled(Button)({
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useLoginStore();
+  const { setToast } = useToastStore();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -92,10 +96,16 @@ const Login = () => {
   getWeatherCity();
 
   const handleLogin = () => {
-    if (!id.trim()) return alert("아이디를 입력해주세요");
-    if (!password.trim()) return alert("비밀번호를 입력해주세요");
+    if (!id.trim())
+      return setToast({ type: "warn", msg: "아이디를 입력해주세요" });
+
+    if (!password.trim())
+      return setToast({ type: "warn", msg: "비밀번호를 입력해주세요" });
+
+    setToast({ type: "success", msg: "로그인 성공" });
     login(id, password);
     navigate("/");
+    // setTimeout(() => {}, 2000);
   };
   useEffect(() => {
     getAi();
