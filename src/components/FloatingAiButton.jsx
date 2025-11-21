@@ -135,7 +135,7 @@ const UserChatMessage = styled(Typography)({
   backgroundColor: "gray",
   color: "white",
   borderRadius: 10,
-  padding: "0 10px",
+  // padding: "0 10px",
   alignSelf: "flex-end",
   padding: "5px 15px",
   maxWidth: "90%",
