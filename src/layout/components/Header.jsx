@@ -7,6 +7,7 @@ import { useNavigate } from "react-router";
 import LogoutIcon from "@mui/icons-material/Logout";
 import TravelNowLogo from "../../assets/TravelNow_Logo_white.png";
 import { useLoginStore } from "../../store/useLoginStore";
+import { useToastStore } from "../../store/useToastStore";
 
 const HeaderContainer = styled(Box)({
   position: "fixed",
@@ -108,7 +109,13 @@ const MobileMenu = styled(Box)(({ theme }) => ({
 
 const Header = () => {
   const navigate = useNavigate();
+  const { setToast } = useToastStore();
   const { isLogin, logout } = useLoginStore();
+
+  const handleLogout = () => {
+    setToast({ type: "success", msg: "로그아웃 성공" });
+    logout();
+  };
 
   return (
     <HeaderContainer>
@@ -135,7 +142,7 @@ const Header = () => {
           <LogoutIcon
             sx={{ color: "white" }}
             cursor={"pointer"}
-            onClick={logout}
+            onClick={handleLogout}
           />
         ) : (
           <LoginIcon
