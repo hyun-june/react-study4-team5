@@ -1,4 +1,4 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
@@ -11,39 +11,52 @@ const FloatingWrapper = styled(Box)({
   right: 30,
 });
 
-const FloatingButton = styled(Button)({
-  border: "1px solid gray",
+const FloatingButton = styled(Button)(({ theme }) => ({
   padding: "1em",
   borderRadius: 50,
   backgroundColor: "white",
-  color: "black",
   width: 50,
   height: 50,
   minWidth: 0,
+  border: "1px solid var(--main-point-green)",
+  color: "var(--main-point-green)",
+  fontWeight: "bold",
 
   "&:hover": {
-    backgroundColor: "black",
+    backgroundColor: "var(--main-point-green)",
     color: "white",
   },
-});
 
-const AiChatBox = styled(Box)({
+  [theme.breakpoints.down("sm")]: {
+    width: 40,
+    height: 40,
+    padding: "0.5em",
+    bottom: 0,
+    right: 0,
+  },
+}));
+const AiChatBox = styled(Box)(({ theme }) => ({
   boxShadow:
     "-4px -4px 8px rgba(100, 100, 100, 0.1), 4px 4px 10px rgba(100, 100, 100, 0.1)",
   borderRadius: 30,
   overflow: "visible",
   position: "absolute",
+  maxWidth: 400,
+  maxHeight: 400,
   top: -400,
-  width: 300,
-  maxWidth: 300,
-  height: 400,
   right: 10,
   display: "flex",
   flexDirection: "column",
-  // padding: 10,
   zIndex: 999,
   backgroundColor: "white",
-});
+
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: 380,
+    maxHeight: 400,
+    top: -400,
+    right: -5,
+  },
+}));
 
 const AiChatInner = styled(Box)({
   flex: 1,
@@ -121,8 +134,7 @@ const AiChatButton = styled(Button)({
 });
 
 const AiChatMessage = styled(Typography)({
-  backgroundColor: "blue",
-  color: "white",
+  backgroundColor: "#f1f0f5",
   borderRadius: 10,
   padding: "5px 15px",
   maxWidth: "90%",
@@ -132,8 +144,7 @@ const AiChatMessage = styled(Typography)({
 });
 
 const UserChatMessage = styled(Typography)({
-  backgroundColor: "gray",
-  color: "white",
+  backgroundColor: "var(--main-point-green)",
   borderRadius: 10,
   // padding: "0 10px",
   alignSelf: "flex-end",
@@ -187,6 +198,11 @@ const FloatingAiButton = () => {
       {isOpen && (
         <AiChatBox>
           <AiChatInner ref={chatRef}>
+            <AiChatMessage>
+              안녕하세요! 😊 <br />
+              오늘의 여행, 어디로 떠나고 싶으신가요? <br />
+              궁금한 점을 말씀해 주세요.
+            </AiChatMessage>
             {messages.map(({ type, text }, index) =>
               type === "user" ? (
                 <UserChatMessage key={index}>{text}</UserChatMessage>
