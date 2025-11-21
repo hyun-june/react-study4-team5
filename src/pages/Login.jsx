@@ -19,7 +19,6 @@ const LoginInputGroup = styled(FormGroup)(({ theme }) => ({
 }));
 
 const LoginInputWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: "blue",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
