@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import TravelCard from "./TravelCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -33,7 +33,7 @@ const cities = [
     { country: "Canada", city: "Vancouver" },
 ];
 
-const PoppularCity = () => {
+const CitySlide = () => {
     return (
         <Box sx={{ width: "100%" }}>
             <Carousel
@@ -61,4 +61,4 @@ const PoppularCity = () => {
     );
 };
 
-export default PoppularCity;
+export default CitySlide;

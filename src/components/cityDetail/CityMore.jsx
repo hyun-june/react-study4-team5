@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
-import PoppularCity from "../PoppularCity";
+import CitySlide from "../CitySlide";
 
 const Wrapper = styled("section")({
     margin: "100px 0 32px",
@@ -21,7 +21,7 @@ const CityMore = () => {
             >
                 여행지 더 알아보기
             </Typography>
-            <PoppularCity />
+            <CitySlide />
         </Wrapper>
     );
 };
