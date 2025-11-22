@@ -6,6 +6,7 @@ import CityVisual from "../components/cityDetail/CityVisual";
 import CityInfo from "../components/cityDetail/CityInfo";
 import CityImageList from "../components/cityDetail/CityImageList";
 import CityVideo from "../components/cityDetail/CityVideo";
+import CityMore from "../components/cityDetail/CityMore";
 import styled from "@emotion/styled";
 
 const Wrapper = styled("section")({
@@ -65,6 +66,7 @@ const CityDetail = () => {
             <CityInfo keyword={keyword} photos={photos} />
             <CityImageList keyword={keyword} photos={photos} />
             <CityVideo keyword={keyword} mainVideo={mainVideo} />
+            <CityMore/>
         </Wrapper>
     );
 };
