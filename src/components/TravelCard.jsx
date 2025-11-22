@@ -1,185 +1,206 @@
-import React, { useEffect, useState } from "react";
-import { getCountryInfo } from "../utils/apis/countries";
+import { useEffect, useState } from "react";
 import { imageApi } from "../utils/apis/imageApi";
 import { getWeatherByCity } from "../utils/apis/weatherAPI";
 import { useNavigate } from "react-router";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { useFavoriteStore } from "../store/useFavoriteStore";
-import { Card, CardMedia, CardContent, Typography, Box, Button, IconButton } from "@mui/material";
+import TravelNowLogo from "../assets/TravelNow_Logo_black.png";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Box,
+  Button,
+  IconButton,
+} from "@mui/material";
 
-const TravelCard = ({ countryName, cityName }) => {
-    const [country, setCountry] = useState(null);
-    const [weather, setWeather] = useState(null);
-    const [imageUrl, setImageUrl] = useState("");
-    const { favorites, toggleFavorite } = useFavoriteStore();
+const TravelCard = ({ data }) => {
+  const countryName = data?.name?.common;
+  const cityName = data?.capital;
+  const population = data?.population.toLocaleString();
+  const [weather, setWeather] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const { favorites, toggleFavorite } = useFavoriteStore();
 
-    const cityKey = `${countryName}-${cityName}`;
-    const isFavorite = favorites.includes(cityKey);
+  const cityKey = `${countryName}-${cityName}`;
+  const isFavorite = favorites.includes(cityKey);
 
-    const handleFavoriteClick = () => {
-        toggleFavorite(cityKey);
+  const handleFavoriteClick = () => {
+    toggleFavorite(cityKey);
+  };
+
+  const navigate = useNavigate();
+
+  const handleMoreInfo = () => {
+    const keyword = countryName;
+    navigate(`/city/detail?name=${encodeURIComponent(keyword)}`);
+  };
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const data = await getWeatherByCity(cityName);
+        setWeather(data);
+      } catch (error) {
+        console.error("weather api error", error);
+      }
     };
+    fetchWeather();
+  }, [cityName]);
 
-    const navigate = useNavigate();
+  useEffect(() => {
+    const fetchImage = async () => {
+      try {
+        const query = `${cityName} ${countryName} landmark travel tourist attraction`;
+        const response = await imageApi.get(
+          `/search?query=${query}&per_page=1`
+        );
 
-    const handleMoreInfo = () => {
-        const keyword = countryName;
-        navigate(`/city/detail?name=${encodeURIComponent(keyword)}`);
+        if (response.data.photos && response.data.photos.length > 0) {
+          const fetchedUrl = response?.data?.photos[0]?.src.large;
+          setImageUrl(fetchedUrl);
+        } else {
+          setImageUrl("");
+        }
+      } catch (error) {
+        console.error("image error", error);
+        setImageUrl("");
+      }
     };
+    fetchImage();
+  }, [cityName, countryName]);
 
-    useEffect(() => {
-        const fetchCountry = async () => {
-            const data = await getCountryInfo(countryName);
-            setCountry(data);
-            console.log("country", data);
-        };
-        fetchCountry();
-    }, [countryName]);
-
-    useEffect(() => {
-        const fetchWeather = async () => {
-            try {
-                const data = await getWeatherByCity(cityName);
-                setWeather(data);
-            } catch (error) {
-                console.error("weather api error", error);
-            }
-        };
-        fetchWeather();
-    }, [cityName]);
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            try {
-                const response = await imageApi.get(`/search?query=${cityName}+${countryName}&per_page=1`);
-
-                if (response.data.photos && response.data.photos.length > 0) {
-                    const fetchedUrl = response.data.photos[0]?.src.large;
-
-                    const finalImageUrl =
-                        fetchedUrl || "https://via.placeholder.com/400x300/000000/FFFFFF?text=No+Image";
-                    setImageUrl(finalImageUrl);
-                    // console.log("Fetched Image URL:", fetchedUrl);
-                } else {
-                    setImageUrl("");
-                }
-            } catch (error) {
-                console.error("image error", error);
-                setImageUrl("");
-            }
-        };
-        fetchImage();
-    }, [cityName, countryName]);
-
-    if (!country || !weather) return <p>Loading...</p>;
-
-    return (
-        <div>
-            <Card
-                sx={{
-                    width: 300,
-                    height: 400,
-                    position: "relative",
-                    mb: 6,
-                    backgroundColor: "black",
-                }}
+  return (
+    <Box onClick={handleMoreInfo} sx={{ cursor: "pointer" }}>
+      <Card
+        sx={{
+          width: 300,
+          height: 400,
+          position: "relative",
+          mb: 6,
+        }}
+      >
+        {imageUrl ? (
+          <>
+            <CardMedia
+              component="img"
+              sx={{ height: 400, width: 300, objectFit: "cover" }}
+              // height="200"
+              image={imageUrl}
+              alt={cityName}
+            />
+            <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "rgba(0,0,0,0.4)",
+                zIndex: 1,
+              }}
+            ></Box>
+            <IconButton
+              aria-label="add to favorites"
+              onClick={handleFavoriteClick}
+              sx={{
+                position: "absolute",
+                top: 5,
+                right: 5,
+                zIndex: 10,
+                color: isFavorite ? "error.main" : "white",
+                "&:hover": {
+                  backgroundColor: "rgba(255, 255, 255, 0.6)",
+                },
+              }}
             >
-                <CardMedia
-                    component="img"
-                    sx={{ height: 400, width: 300, objectFit: "cover" }}
-                    // height="200"
-                    image={imageUrl}
-                    alt={cityName}
-                />
-                <Box
-                    sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        backgroundColor: "rgba(0,0,0,0.4)",
-                        zIndex: 1,
-                    }}
-                ></Box>
-                <IconButton
-                    aria-label="add to favorites"
-                    onClick={handleFavoriteClick}
-                    sx={{
-                        position: "absolute",
-                        top: 5,
-                        right: 5,
-                        zIndex: 10,
-                        color: isFavorite ? "error.main" : "white",
-                        "&:hover": {
-                            backgroundColor: "rgba(255, 255, 255, 0.6)",
-                        },
-                    }}
-                >
-                    <FavoriteIcon />
-                </IconButton>
-                <CardContent
-                    sx={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        width: "100%",
-                        backgroundColor: "transparent",
-                        color: "white",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        boxSizing: "border-box",
-                        height: 400,
-                        justifyContent: "space-between",
-                        zIndex: 2,
-                    }}
-                >
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-around",
-                            alignItems: "center",
-                            mb: 1,
-                        }}
-                    >
-                        {" "}
-                    </Box>
+              <FavoriteIcon />
+            </IconButton>
+            <CardContent
+              sx={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                width: "100%",
+                backgroundColor: "transparent",
+                color: "white",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                boxSizing: "border-box",
+                height: 400,
+                justifyContent: "space-between",
+                zIndex: 2,
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-around",
+                  alignItems: "center",
+                  mb: 1,
+                }}
+              ></Box>
 
-                    <Box>
-                        <Typography variant="body2">
-                            {country.name.common}, {country.capital}
-                        </Typography>
-                        <Typography variant="body2">인구: {country.population.toLocaleString()}</Typography>
-                        <Typography variant="body2">
-                            날씨: {weather.weather[0].description}, {weather.main.temp}°C
-                        </Typography>
-                        <Typography variant="body2">
-                            통화:{" "}
-                            {Object.values(country.currencies)
-                                .map((c) => `${c.name} (${c.symbol})`)
-                                .join(", ")}
-                        </Typography>
-                        <Button
-                            variant="outlined"
-                            onClick={handleMoreInfo}
-                            sx={{
-                                color: "white",
-                                borderColor: "white",
-                                mt: 0.5,
-                                "&:hover": {
-                                    backgroundColor: "white",
-                                    color: "black",
-                                },
-                            }}
-                        >
-                            More Information
-                        </Button>
-                    </Box>
-                </CardContent>
-            </Card>
-        </div>
-    );
+              <Box>
+                <Typography variant="body2">
+                  {countryName}, {cityName}
+                </Typography>
+                <Typography variant="body2">인구: {population}</Typography>
+                <Typography variant="body2">
+                  날씨: {weather?.weather[0]?.description},{" "}
+                  {weather?.main?.temp}°C
+                </Typography>
+                <Typography variant="body2">
+                  통화:
+                  {Object.values(data?.currencies || {})
+                    .map((c) => `${c?.name} (${c?.symbol})`)
+                    .join(", ")}
+                </Typography>
+                <Button
+                  variant="outlined"
+                  onClick={handleMoreInfo}
+                  sx={{
+                    color: "white",
+                    borderColor: "white",
+                    mt: 0.5,
+                    "&:hover": {
+                      backgroundColor: "white",
+                      color: "black",
+                    },
+                  }}
+                >
+                  More Information
+                </Button>
+              </Box>
+            </CardContent>
+          </>
+        ) : (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <Box
+              component="img"
+              src={TravelNowLogo}
+              sx={{ width: "1.625rem", height: "1.625rem" }}
+            />
+
+            <Typography
+              sx={{ fontFamily: "Stack Sans Notch", fontSize: "20px" }}
+            >
+              TravelNow
+            </Typography>
+          </Box>
+        )}
+      </Card>
+    </Box>
+  );
 };
 
 export default TravelCard;

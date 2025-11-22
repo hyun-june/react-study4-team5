@@ -10,7 +10,7 @@ const api = axios.create({
 // 요청 인터셉터
 api.interceptors.request.use(
   (config) => {
-    console.log("API 요청:", config.url);
+    // console.log("API 요청:", config.url);
     return config;
   },
   (error) => {
@@ -32,16 +32,12 @@ api.interceptors.response.use(
 export const getCountryInfo = async (name) => {
   if (!name) return null;
   try {
-     const response = await api.get(
-    `/name/${name}?fields=name,capital,population,currencies,flags`
-  ) 
+    const response = await api.get(
+      `/name/${name}?fields=name,capital,population,currencies,flags`
+    );
     return response.data[0];
   } catch (error) {
-    console.error("API 요청오류",error)
-    return null
+    console.error("API 요청오류", error);
+    return null;
   }
-
-
-}
-
-export default api;
+};
