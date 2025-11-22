@@ -22,7 +22,6 @@ const Wrapper = styled("section")({
     fontFamily: "Pretendard, sans-serif",
     fontSize: "16px",
     color: "#333",
-    backgroundColor: "#f9f9f9"
 });
 
 const CityDetail = () => {
