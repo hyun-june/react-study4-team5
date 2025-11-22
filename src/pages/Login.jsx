@@ -26,7 +26,7 @@ const LoginInputWrapper = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   width: "40%",
-  backgroundColor: "rgba(0,0,0,0.6)",
+  backGroundColor: "rgba(0,0,0,0.6)",
   [theme.breakpoints.down("md")]: {
     width: "100%",
   },
