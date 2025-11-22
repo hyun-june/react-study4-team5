@@ -87,7 +87,6 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
     const isLoading = exchangeRateLoading || weatherLoading || countryLoading || aiLoading;
     const hasError = exchangeRateError || weatherError || countryError || aiError;
 
-    const exchangeRate = exchangeRateData?.rates?.USD;
     const mainPhoto = photos?.[5] ?? photos?.[0];
 
     if (!mainPhoto) {
