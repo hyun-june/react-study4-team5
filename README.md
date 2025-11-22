@@ -123,7 +123,49 @@
   <summary><b>2025년 11월 19일 수요일 13:30 (4일차)</b></summary>
   <ul>
     <li>진행 사항 체크</li>
-    <li>희정님 - 리스트 페이지 업무 분담</li>
+    
+  </ul>
+</details>
+<details>
+  <summary><b>2025년 11월 21일 토요일 19:00 (8일차)</b></summary>
+  <ul>
+    <li>모든 코드 dev에 업로드 후 테스트 배포로 오류 및 수정 사안 확인</li>
+    <li>
+      수정 사안
+      <ul>
+        <li>Home
+        <ul>
+          <li>카드 슬라이더에  카드를 누르면 상세 페이지로 이동하게</li>
+        </ul>
+        </li>
+            <li>Cities
+        <ul>
+          <li>카드 로딩 및 동일한 카드 랜더 -> 이미지 없으면 기본 이미지 넣으면 좋을듯
+</li>
+        </ul>
+        </li>
+            <li>Detail
+        <ul>
+          <li>로딩 스피너가 헤더 뒤에 나옴</li>
+          <li>환율 정보</li>
+          <li>캐러셀 추가(작업중)</li>
+        </ul>
+        </li>
+            <li>Comp
+        <ul>
+          <li>검색 시 디테일 페이지로 연결</li>
+           <li>모바일 로그인 버튼 구현 필요</li>
+        </ul>
+        </li>
+        <li>발표 준비(공통)
+        <ul>
+          <li>각자 경력, 배경</li>
+           <li>내가 해결하려 했던 문제</li>
+           <li>느낀점 (짧게 팀원별 느낀점)</li>
+        </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </details>
 
@@ -213,7 +255,7 @@
          </ul> 
         </div>
     </details>  
-    <details>
+<details>
   <summary><b>2025년 11월 18일 화요일 (3일차)</b></summary>
     <details> 
       <summary><b>Done</b></summary>
