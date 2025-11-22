@@ -1,94 +1,57 @@
-import { Box, Skeleton, Typography } from "@mui/material";
-import CurrencyConverter from "../components/CurrencyConverter";
-import { useGetImagesQuery } from "../hooks/useGetImages";
-import { homeCities } from "../constants/homeCities";
-import { useEffect, useState } from "react";
-import styled from "@emotion/styled";
+import { Box, Typography } from "@mui/material";
 import CitySlide from "../components/CitySlide";
+import Banner from "../components/Home/Banner";
+import CurrencyConverter from "../components/Home/CurrencyConverter";
+import ServiceFeatures from "../components/Home/ServiceFeatures";
+import styled from "@emotion/styled";
 
-const RandomCityTitle = styled(Typography)({
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    color: "rgba(255, 255, 255, 0.9)",
-    fontSize: "clamp(3rem, 6vw, 8rem)",
-    letterSpacing: "clamp(-2px, 6vw, -3px)",
-    fontFamily: "ZenSerif",
-    textShadow: "0 0 5px rgba(255, 255, 255, 0.3)",
-    whiteSpace: "nowrap",
+const HomeContainer = styled(Box)({
+  position: "relative",
+});
+
+const FeatureTitle = styled(Typography)({
+  fontFamily: "Pretendard",
+  textAlign: "center",
+  fontWeight: 700,
+  marginTop: "5rem",
+  marginBottom: "1rem",
+  fontSize: "clamp(2rem, 3rem, 4rem)",
+  letterSpacing: "-1.5px",
+  whiteSpace: "wrap",
+  wordBreak: "keep-all",
+  lineHeight: "1.25",
+  paddingInline: "clamp(1rem, 3rem, 10rem)",
+});
+
+const FeatureParagraph = styled(Typography)({
+  fontFamily: "Pretendard",
+  textAlign: "center",
+  fontSize: "clamp(1.25rem, 1.25rem, 2rem)",
+  fontWeight: 400,
+  paddingBottom: "7rem",
+  whiteSpace: "wrap",
+  wordBreak: "keep-all",
+  paddingInline: "clamp(1rem, 3rem, 10rem)",
 });
 
 const Home = () => {
-    const [randomCity, setRandomCity] = useState(null);
+  return (
+    <HomeContainer>
+      <Banner />
 
-    useEffect(() => {
-        const randomIndex = Math.floor(Math.random() * homeCities.length);
-        setRandomCity(homeCities[randomIndex]);
-    }, []);
+      <FeatureTitle>여행의 시작, 세상을 탐험하세요</FeatureTitle>
+      <FeatureParagraph>
+        날씨부터 환율까지, 꿈꾸던 여행지의 모든 정보를 손쉽게 확인하고
+        계획하세요
+      </FeatureParagraph>
 
-    const { data: images, isLoading } = useGetImagesQuery(randomCity?.name, {
-        per_page: 3,
-    });
+      <CitySlide />
 
-    const imageUrl = images?.photos?.[0]?.src.landscape;
+      <ServiceFeatures />
 
-    return (
-        <Box sx={{ position: "relative" }}>
-            <Box
-                sx={{
-                    position: "relative",
-                    width: "100%",
-                    overflow: "hidden",
-                }}
-            >
-                {!isLoading && randomCity ? (
-                    <Box>
-                        <Box
-                            component="img"
-                            src={imageUrl}
-                            sx={{
-                                width: "100%",
-                                height: { xs: "500px", sm: "600px", md: "700px" },
-                                objectFit: "cover",
-                            }}
-                        />
-
-                        <RandomCityTitle>{randomCity?.name}</RandomCityTitle>
-                    </Box>
-                ) : (
-                    <Skeleton animation="wave" variant="rectangular" height={480} />
-                )}
-                <Box
-                    sx={{
-                        position: "absolute",
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: "200px",
-                        background: "linear-gradient(to bottom, transparent, #ffffff)",
-                    }}
-                />
-            </Box>
-
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    mb: 4,
-                    mt: 4,
-                }}
-            >
-                <Typography variant="h4" component="h2" sx={{ mb: 4, mt: 3, fontWeight: 700 }}>
-                    인기 도시 투어
-                </Typography>
-            </Box>
-            <CitySlide />
-            <CurrencyConverter />
-        </Box>
-    );
+      <CurrencyConverter />
+    </HomeContainer>
+  );
 };
 
 export default Home;
