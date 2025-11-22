@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { getCountryInfo } from "../utils/apis/countries";
 import { imageApi } from "../utils/apis/imageApi";
 import { getWeatherByCity } from "../utils/apis/weatherAPI";
+import { useNavigate } from "react-router";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import {
   Card,
   CardMedia,
@@ -11,7 +13,6 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const TravelCard = ({ countryName, cityName }) => {
   const [country, setCountry] = useState(null);
@@ -22,6 +23,13 @@ const TravelCard = ({ countryName, cityName }) => {
   const handleFavoriteClick = () => {
     setIsFavorite(!isFavorite);
     console.log(`favorite status changed to: ${!isFavorite}`);
+  };
+
+  const navigate = useNavigate();
+
+  const handleMoreInfo = () => {
+    const keyword = countryName;
+    navigate(`/city/detail?name=${encodeURIComponent(keyword)}`);
   };
 
   useEffect(() => {
@@ -164,6 +172,7 @@ const TravelCard = ({ countryName, cityName }) => {
             </Typography>
             <Button
               variant="outlined"
+              onClick={handleMoreInfo}
               sx={{
                 color: "white",
                 borderColor: "white",
