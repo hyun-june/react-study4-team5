@@ -11,7 +11,7 @@ import { useLoginStore } from "../../store/useLoginStore";
 import { useToastStore } from "../../store/useToastStore";
 import { useState } from "react";
 
-const HeaderContainer = styled(Box)({
+const HeaderContainer = styled(Box)(({ theme }) => ({
   position: "fixed",
   top: 0,
   left: 0,
@@ -24,9 +24,13 @@ const HeaderContainer = styled(Box)({
   paddingInline: "2rem",
   backdropFilter: "blur(3px)",
   backgroundColor: "rgba(100, 100, 100, 0.3)",
-  boxShadow: "10px 10px 10px rgba(100, 100, 100, 0.3)",
+  boxShadow: "0px 10px 10px rgba(100, 100, 100, 0.3)",
   zIndex: 10000,
-});
+  [theme.breakpoints.down("md")]: {
+    paddingTop: "1rem",
+    paddingBottom: "0.8rem",
+  },
+}));
 
 const LogoBox = styled(Box)({
   display: "flex",
@@ -141,6 +145,7 @@ const DrawerTitle = styled(Typography)({
   fontSize: "2rem",
   fontWeight: "900",
   letterSpacing: "-0.5px",
+  cursor: "pointer",
 });
 
 const MobileDrawerButton = styled(Button)({
@@ -236,7 +241,9 @@ const Header = () => {
             mb: 3,
           }}
         >
-          <DrawerTitle>Travel Now</DrawerTitle>
+          <DrawerTitle onClick={() => handleNavigation("/")}>
+            Travel Now
+          </DrawerTitle>
           <HeaderMenuButton onClick={toggleDrawer(false)}>
             <CloseIcon sx={{ color: "black" }} />
           </HeaderMenuButton>
