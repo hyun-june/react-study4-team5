@@ -68,6 +68,9 @@ const HeaderMenuButton = styled(Button)({
   fontFamily: "Pretendard",
   fontWeight: "300",
   fontSize: "12px",
+  "&:hover": {
+    backgroundColor: "transparent",
+  },
 });
 
 const HeaderIconBox = styled(Box)(({ theme }) => ({
@@ -93,6 +96,7 @@ const HeaderSearchBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: "100%",
     justifyContent: "space-between",
+    backgroundColor: "rgba(199, 199, 199, 1)",
   },
 }));
 
@@ -129,12 +133,12 @@ const MobileMenu = styled(Box)(({ theme }) => ({
 const MenuDrawer = styled(Drawer)({
   display: "flex",
   flexDirection: "column",
-  padding: "2rem",
-  margin: "2rem",
+  height: "100vh",
   zIndex: 100001,
   "& .MuiPaper-root": {
     backgroundColor: "rgba(255, 255, 255, 1)",
-    padding: "2rem",
+    paddingBlock: "2rem",
+    paddingInline: "3rem",
     width: "250px",
     color: "white",
   },
@@ -159,6 +163,25 @@ const MobileDrawerButton = styled(Button)({
     color: "var(--main-point-green)",
     backgroundColor: "transparent",
   },
+});
+
+const MobileLoginButton = styled(Button)({
+  display: "flex",
+  justifyContent: "flex-start",
+  gap: "0.625rem",
+  borderTop: "1px solid #c3c3c3ff",
+  paddingBlock: "2rem",
+  "&:hover": {
+    color: "var(--main-point-green)",
+    backgroundColor: "transparent",
+  },
+});
+
+const MobileLoginText = styled(Typography)({
+  fontFamily: "Pretendard",
+  fontWeight: "600",
+  color: "#000000",
+  fontSize: "0.875rem",
 });
 
 const Header = () => {
@@ -239,7 +262,7 @@ const Header = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            mb: 3,
+            mb: 4,
           }}
         >
           <DrawerTitle onClick={() => handleNavigation("/")}>
@@ -267,21 +290,56 @@ const Header = () => {
             />
           </HeaderSearchBox>
         </Box>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-          <MobileDrawerButton
-            disableRipple
-            fullWidth
-            onClick={() => handleNavigation("/")}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            justifyContent: "space-between",
+            paddingBottom: "3rem",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
+            }}
           >
-            Home
-          </MobileDrawerButton>
-          <MobileDrawerButton
-            disableRipple
-            fullWidth
-            onClick={() => handleNavigation("/cities")}
-          >
-            Cities
-          </MobileDrawerButton>
+            <MobileDrawerButton
+              disableRipple
+              fullWidth
+              onClick={() => handleNavigation("/")}
+            >
+              Home
+            </MobileDrawerButton>
+            <MobileDrawerButton
+              disableRipple
+              fullWidth
+              onClick={() => handleNavigation("/cities")}
+            >
+              Cities
+            </MobileDrawerButton>
+          </Box>
+          {isLogin ? (
+            <MobileLoginButton disableTouchRipple onClick={handleLogout}>
+              <LogoutIcon sx={{ color: "black" }} cursor={"pointer"} />
+              <MobileLoginText>로그아웃</MobileLoginText>
+            </MobileLoginButton>
+          ) : (
+            <MobileLoginButton
+              disableTouchRipple
+              onClick={() => navigate("/login")}
+            >
+              <LoginIcon
+                fontSize="small"
+                sx={{ color: "black" }}
+                cursor={"pointer"}
+              />
+              <MobileLoginText>로그인</MobileLoginText>
+            </MobileLoginButton>
+          )}
         </Box>
       </MenuDrawer>
     </HeaderContainer>
