@@ -188,6 +188,20 @@ const NoDataText = styled(Typography)({
   marginBottom: "0.5rem",
 });
 
+const TimeInfo = styled(Typography)(({ theme }) => ({
+  fontFamily: "Pretendard",
+  color: "#595959ff",
+  fontSize: "0.875rem",
+  fontWeight: "400",
+  textAlign: "center",
+  marginBottom: "0.5rem",
+  whiteSpace: "normal",
+  wordBreak: "keep-all",
+  [theme.breakpoints.down("sm")]: {
+    width: "200px",
+  },
+}));
+
 const CurrencyConverter = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [foreignAmount, setForeignAmount] = useState("");
@@ -339,15 +353,21 @@ const CurrencyConverter = () => {
           </KoreaBox>
         </CurrencyBox>
 
-        {selectedCountry && exchangeList.length > 0 ? (
-          <CurrencyInfoBox>
-            1 {selectedCountry} ={" "}
-            {exchangeList.find((c) => c.cur_nm === selectedCountry)?.bkpr} 원
-          </CurrencyInfoBox>
+        {exchangeList.length > 0 ? (
+          selectedCountry ? (
+            <CurrencyInfoBox>
+              1 {selectedCountry} ={" "}
+              {exchangeList.find((c) => c.cur_nm === selectedCountry)?.bkpr} 원
+            </CurrencyInfoBox>
+          ) : (
+            <TimeInfo>
+              ※ 오전 11시 이전에는 당일이 아닌 전날 기준 데이터를 사용합니다.
+            </TimeInfo>
+          )
         ) : (
           <NoDataText>
             환율 정보를 불러오지 못했습니다 :(
-            <br></br>
+            <br />
             다시 시도해주세요.
           </NoDataText>
         )}
