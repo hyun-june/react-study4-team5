@@ -43,8 +43,6 @@ const CityDetail = () => {
     error: videoErrObj,
   } = useGetVideosQuery(keyword, { per_page: 6 });
 
-  const testloading = true;
-
   if (!keyword) return <Typography>검색어가 없습니다.</Typography>;
   if (imageLoading || videoLoading) {
     return (
