@@ -3,6 +3,7 @@ import CardMedia from "@mui/material/CardMedia";
 import { Container, Typography, ImageList, ImageListItem, Box } from "@mui/material";
 
 const Wrapper = styled("div")({
+    position: "relative",
     width: "100vw",
     height: 420,
 });
@@ -11,10 +12,26 @@ const VisualImage = styled(CardMedia)({
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    position: "relative",
-    overflow: "hidden",
-    padding: 0,
-    margin: 0,
+});
+
+const Overlay = styled("div")({
+    position: "absolute",
+    inset: 0,
+    background: "linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.6))",
+    zIndex: 0,
+});
+
+const Text = styled("p")({
+    fontFamily: "Pretendard",
+    fontSize: "4rem",
+    fontWeight: "800",
+    color: "#fff",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    textAlign: "center",
+    zIndex: 1,
 });
 
 const CityVisual = ({ photos = [], keyword }) => {
@@ -27,6 +44,8 @@ const CityVisual = ({ photos = [], keyword }) => {
     return (
         <Wrapper>
             <VisualImage component="img" image={heroPhoto.src.medium} alt={heroPhoto.alt ?? `${keyword} 대표 이미지`} />
+            <Overlay />
+            <Text>{keyword}</Text>
         </Wrapper>
     );
 };
