@@ -1,8 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Skeleton, Typography } from "@mui/material";
 import CurrencyConverter from "../components/CurrencyConverter";
 import TravelCard from "../components/TravelCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useGetImagesQuery } from "../hooks/useGetImages";
+import { homeCities } from "../constants/homeCities";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const cities = [
@@ -15,6 +18,7 @@ const Home = () => {
     { country: "Thailand", city: "Bangkok" },
     { country: "Canada", city: "Vancouver" },
   ];
+
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -34,8 +38,24 @@ const Home = () => {
     },
   };
 
+  const [randomCity, setRandomCity] = useState(null);
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * homeCities.length);
+    setRandomCity(homeCities[randomIndex]);
+  }, []);
+
+  const { data: images, isLoading } = useGetImagesQuery(randomCity?.name, {
+    per_page: 3,
+  });
+
+  console.log(images);
+
+  const imageUrl = images?.photos?.[0]?.src.landscape;
+
   return (
     <Box sx={{ position: "relative" }}>
+      {/* <Box component="img" src={imageUrl} /> */}
       <Box
         sx={{
           position: "relative",
@@ -43,14 +63,18 @@ const Home = () => {
           overflow: "hidden",
         }}
       >
-        <Box
-          component="img"
-          src="https://images.pexels.com/photos/460672/pexels-photo-460672.jpeg"
-          sx={{
-            width: "100%",
-            display: "block",
-          }}
-        />
+        {!isLoading && randomCity ? (
+          <Box
+            component="img"
+            src={imageUrl}
+            sx={{
+              width: "100%",
+              display: "block",
+            }}
+          />
+        ) : (
+          <Skeleton animation="wave" variant="rectangular" height={480} />
+        )}
         <Box
           sx={{
             position: "absolute",
@@ -79,7 +103,6 @@ const Home = () => {
       </Box>
 
       <Box sx={{ p: 2, mb: 5 }}>
-        {" "}
         <Carousel
           swipeable={true}
           draggable={true}
