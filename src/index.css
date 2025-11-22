@@ -80,3 +80,18 @@
   font-weight: 900;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "HsBombaram21";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/HSBombaram21-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "ZenSerif";
+  src: url("/src/assets/ZEN-SERIF-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
