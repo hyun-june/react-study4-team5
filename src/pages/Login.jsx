@@ -21,12 +21,12 @@ const LoginInputGroup = styled(FormGroup)(({ theme }) => ({
 }));
 
 const LoginInputWrapper = styled(Box)(({ theme }) => ({
-  backgroundColor: "blue",
+  backgroundColor: "rgba(0,0,0,0.6)",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   width: "40%",
-  backGroundColor: "rgba(0,0,0,0.6)",
+
   [theme.breakpoints.down("md")]: {
     width: "100%",
   },
