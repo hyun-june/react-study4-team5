@@ -43,7 +43,7 @@ ExchangeApi.interceptors.request.use(
     config.url = `${proxy.url}${proxy.transform(targetUrl)}`;
     config.params = {};
 
-    console.log("요청한 프록시 서버:", proxy.url);
+    // console.log("요청한 프록시 서버:", proxy.url);
     return config;
   },
   function (error) {
@@ -53,7 +53,7 @@ ExchangeApi.interceptors.request.use(
 
 ExchangeApi.interceptors.response.use(
   function (response) {
-    console.log("Response success");
+    // console.log("Response success");
     return response;
   },
   async function (error) {
@@ -68,9 +68,9 @@ ExchangeApi.interceptors.response.use(
       config.__retryCount++;
       currentProxyIndex = (currentProxyIndex + 1) % CORS_PROXIES.length;
 
-      console.log(
-        `Retrying with proxy ${currentProxyIndex + 1}/${CORS_PROXIES.length}`
-      );
+      // console.log(
+      //   `Retrying with proxy ${currentProxyIndex + 1}/${CORS_PROXIES.length}`
+      // );
 
       // 새로운 프록시로 재시도
       return ExchangeApi.request(config);
