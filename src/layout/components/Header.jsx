@@ -249,7 +249,11 @@ const Header = () => {
                 >
                     <HeaderSearchBox component="form" onSubmit={searchByKeyword}>
                         <SearchIcon fontSize="small" sx={{ color: "white" }} />
-                        <HeaderSearch value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+                        <HeaderSearch
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            placeholder="영문으로 입력해 주세요"
+                        />
                     </HeaderSearchBox>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
