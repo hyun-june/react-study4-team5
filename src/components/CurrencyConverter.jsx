@@ -189,7 +189,7 @@ const NoDataText = styled(Typography)({
 });
 
 const CurrencyConverter = () => {
-  const [selectedCountry, setSelectedCountry] = useState("유로");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [foreignAmount, setForeignAmount] = useState("");
   const [krwAmount, setKrwAmount] = useState("");
 
