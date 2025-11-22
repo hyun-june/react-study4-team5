@@ -2,7 +2,7 @@
 
 # TravelNow
 
-슬로건
+오늘의 여행 추천
 
 <br/>
 
@@ -21,7 +21,8 @@
 
 ### 목적
 
-사이트 목적
+나라 별 환율, 이미지를 한 사이트에서 볼 수 있다.
+궁금한 점은 AI를 통해 해결할 수 있다.
 
 ## 개발 기간
 
@@ -39,10 +40,10 @@
 ## 기능
 
 <ul>
-  <li>기능 1</li>
-  <li>기능 2</li>
-  <li>기능 3</li>
-  <li>기능 4</li>
+  <li>메인 페이지 랜덤 배너이미지</li>
+  <li>간단한 AI 플로팅 버튼을 통해 대화를 할 수 있다.</li>
+  <li>Zustand를 통한 로그인 흉내</li>
+  <li>국가를 검색해 해당 국가에 대한 자세한 내용을 볼 수 있다.</li>
 </ul>
 <br/><br/>
 
@@ -53,6 +54,16 @@
 - Pexels API
 - Gemini API
 - 공공데이터 포털 한국수출입은행 환율 정보 오픈 API
+
+## 라이브러리
+
+- react-router
+- react-multi-carousel
+- react-query
+- Mui
+- zustand
+- axios
+- google-genai
 
 ## 스탠드업 미팅
 
@@ -123,7 +134,50 @@
   <summary><b>2025년 11월 19일 수요일 13:30 (4일차)</b></summary>
   <ul>
     <li>진행 사항 체크</li>
-    <li>희정님 - 리스트 페이지 업무 분담</li>
+    
+  </ul>
+</details>
+<details>
+  <summary><b>2025년 11월 21일 토요일 19:00 (7일차)</b></summary>
+  <ul>
+    <li>모든 코드 dev에 업로드 후 테스트 배포로 오류 및 수정 사안 확인</li>
+    <li>
+      수정 사안
+      <ul>
+        <li>Home(현준님)
+        <ul>
+          <li>카드 슬라이더에  카드를 누르면 상세 페이지로 이동하게</li>
+        </ul>
+        </li>
+            <li>Cities(현준님)
+        <ul>
+          <li>카드 로딩 및 동일한 카드 랜더 -> 이미지 없으면 기본 이미지 넣으면 좋을듯
+</li>
+        </ul>
+        </li>
+            <li>Detail(현정님)
+        <ul>
+          <li>로딩 스피너가 헤더 뒤에 나옴</li>
+          <li>환율 정보</li>
+          <li>캐러셀 추가(작업중)</li>
+        </ul>
+        </li>
+            <li>Comp(지형님)
+        <ul>
+          <li>검색 시 디테일 페이지로 연결</li>
+           <li>모바일 로그인 버튼 구현 필요</li>
+        </ul>
+        </li>
+        <li>발표 준비(희정님)
+        <ul>
+          제출 내용
+          <li>각자 경력, 배경</li>
+           <li>내가 해결하려 했던 문제</li>
+           <li>느낀점 (짧게 팀원별 느낀점)</li>
+        </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </details>
 
@@ -213,7 +267,8 @@
          </ul> 
         </div>
     </details>  
-    <details>
+    </details> 
+<details>
   <summary><b>2025년 11월 18일 화요일 (3일차)</b></summary>
     <details> 
       <summary><b>Done</b></summary>
@@ -243,7 +298,8 @@
            <li>추가 업무 분담</li>
          </ul> 
         </div>
-    </details>  
+    </details>
+      </details>   
      <details>
   <summary><b>2025년 11월 19일 수요일 (4일차)</b></summary>
     <details> 
@@ -268,7 +324,9 @@
          </ul> 
         </div>
     </details>  
-     <details>
+</details>
+
+<details> 
   <summary><b>2025년 11월 20일 목요일 (5일차)</b></summary>
     <details> 
       <summary><b>Done</b></summary>
@@ -289,6 +347,90 @@
          </ul> 
         </div>
     </details>  
+</details>
+<details> 
+  <summary><b>2025년 11월 21일 금요일 (6일차)</b></summary>
+    <details> 
+      <summary><b>Done</b></summary>
+        <div>
+         <ul>
+          <li>
+              dev 브랜치 테스트 배포 완료
+            </li>
+         </ul> 
+        </div>
+    </details>
+    <details>
+      <summary><b>To Do</b></summary>
+        <div>
+         <ul>
+       <li>
+       개발 진행
+            </li>
+         </ul> 
+        </div>
+    </details>  
+</details>
+<details> 
+  <summary><b>2025년 11월 22일 토요일 (7일차)</b></summary>
+    <details> 
+      <summary><b>Done</b></summary>
+        <div>
+         <ul>
+          <li>
+              dev에 업로드 후 테스트 배포 오류 테스트 및 시간
+            </li>
+              <li>
+              수정 사안 역할 분배
+            </li>
+         </ul> 
+        </div>
+    </details>
+    <details>
+      <summary><b>To Do</b></summary>
+        <div>
+         <ul>
+        <li>Home(현준님)
+        <ul>
+          <li>카드 슬라이더에  카드를 누르면 상세 페이지로 이동하게</li>
+        </ul>
+        </li>
+           <li>FloatingAiButton(현준님)
+        <ul>
+          <li>채팅창 크기 수정</li>
+        </ul>
+        </li>
+            <li>Cities(현준님)
+        <ul>
+          <li>카드 로딩 및 동일한 카드 랜더 -> 이미지 없으면 기본 이미지 넣으면 좋을듯
+</li>
+
+        </ul>
+        </li>
+            <li>Detail(현정님)
+        <ul>
+          <li>로딩 스피너가 헤더 뒤에 나옴</li>
+          <li>환율 정보</li>
+          <li>캐러셀 추가(작업중)</li>
+        </ul>
+        </li>
+            <li>Comp(지형님)
+        <ul>
+          <li>검색 시 디테일 페이지로 연결</li>
+           <li>모바일 로그인 버튼 구현 필요</li>
+        </ul>
+        </li>
+        <li>발표 준비(희정님)
+        <ul>
+          <li>팀원 소개</li>
+           <li>내가 해결하려 했던 문제</li>
+           <li>협업 과정( git, figma, readme)</li>
+          <li>데모</li>
+           <li>느낀점 (짧게 팀원별 느낀점)</li>
+        </ul>
+        </div>
+    </details>
+
 </details>
 
 <br/>
