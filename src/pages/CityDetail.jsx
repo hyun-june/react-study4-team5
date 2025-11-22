@@ -46,7 +46,7 @@ const CityDetail = () => {
     if (!keyword) return <Typography>검색어가 없습니다.</Typography>;
     if (imageLoading || videoLoading) {
         return (
-            <Box display="flex" flexDirection="column" alignItems="center" gap={2} margin={"100px auto"}>
+            <Box display="flex" flexDirection="column" alignItems="center" gap={2} margin={"20rem auto"}>
                 <CircularProgress sx={{ color: "#90cb47ff" }} />
                 <Typography>컨텐츠 불러오는 중...</Typography>
             </Box>
