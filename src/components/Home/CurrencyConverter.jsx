@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-import { useGetExchangeRateQuery } from "../hooks/useGetExchangeRate";
-import { today } from "../constants/todayDate";
+import { useGetExchangeRateQuery } from "../../hooks/useGetExchangeRate";
+import { today } from "../../constants/todayDate";
 import { styled } from "@mui/material/styles";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
