@@ -140,7 +140,7 @@
 <details>
   <summary><b>2025년 11월 20일 목요일 20:00 (5일차)</b></summary>
   <ul>
-    <li>진행 사항 체크(현준님,현정님,지형님</li>
+    <li>진행 사항 체크(현준님,현정님,지형님)</li>
   </ul>
 </details>
 <details>
