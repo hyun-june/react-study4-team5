@@ -6,6 +6,20 @@ import "react-multi-carousel/lib/styles.css";
 import { useGetImagesQuery } from "../hooks/useGetImages";
 import { homeCities } from "../constants/homeCities";
 import { useEffect, useState } from "react";
+import styled from "@emotion/styled";
+
+const RandomCityTitle = styled(Typography)({
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  color: "rgba(255, 255, 255, 0.9)",
+  fontSize: "clamp(3rem, 6vw, 8rem)",
+  letterSpacing: "clamp(-2px, 6vw, -3px)",
+  fontFamily: "ZenSerif",
+  textShadow: "0 0 5px rgba(255, 255, 255, 0.3)",
+  whiteSpace: "nowrap",
+});
 
 const Home = () => {
   const cities = [
@@ -49,13 +63,10 @@ const Home = () => {
     per_page: 3,
   });
 
-  console.log(images);
-
   const imageUrl = images?.photos?.[0]?.src.landscape;
 
   return (
     <Box sx={{ position: "relative" }}>
-      {/* <Box component="img" src={imageUrl} /> */}
       <Box
         sx={{
           position: "relative",
@@ -64,14 +75,19 @@ const Home = () => {
         }}
       >
         {!isLoading && randomCity ? (
-          <Box
-            component="img"
-            src={imageUrl}
-            sx={{
-              width: "100%",
-              display: "block",
-            }}
-          />
+          <Box>
+            <Box
+              component="img"
+              src={imageUrl}
+              sx={{
+                width: "100%",
+                height: { xs: "500px", sm: "600px", md: "700px" },
+                objectFit: "cover",
+              }}
+            />
+
+            <RandomCityTitle>{randomCity?.name}</RandomCityTitle>
+          </Box>
         ) : (
           <Skeleton animation="wave" variant="rectangular" height={480} />
         )}
