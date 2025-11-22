@@ -43,7 +43,8 @@ const AiChatBox = styled(Box)(({ theme }) => ({
   position: "absolute",
   maxWidth: 400,
   maxHeight: 400,
-  top: -400,
+  height: 400,
+  top: -410,
   right: 10,
   display: "flex",
   flexDirection: "column",
@@ -146,7 +147,6 @@ const AiChatMessage = styled(Typography)({
 const UserChatMessage = styled(Typography)({
   backgroundColor: "var(--main-point-green)",
   borderRadius: 10,
-  // padding: "0 10px",
   alignSelf: "flex-end",
   padding: "5px 15px",
   maxWidth: "90%",
