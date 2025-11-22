@@ -52,7 +52,7 @@ const TravelCard = ({ data }) => {
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const query = `${cityName} ${countryName} landmark travel tourist attraction`;
+        const query = `${cityName} ${countryName} landmark`;
         const response = await imageApi.get(
           `/search?query=${query}&per_page=1`
         );
