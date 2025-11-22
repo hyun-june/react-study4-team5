@@ -8,15 +8,16 @@
 
 ## 링크
 
-- [배포]()
+- [배포](https://travelnow2025.netlify.app/)
 - [Figma](https://www.figma.com/design/ExvgxzsiLglcdW0iRWgS8D/%EB%A6%AC%EC%95%A1%ED%8A%B8-4%EA%B8%B0-5%EC%A1%B0?node-id=0-1&p=f&t=2qNgRmpgYR4AWUy2-0)
+- [테스트 배포(dev 브랜치)](https://travelnowtest.netlify.app/)
   <br/><br/>
 
 ## 프로젝트 소개
 
 ### 주제
 
-글로벌 여행 플래너
+글로벌 여행 추천
 
 ### 목적
 
@@ -49,9 +50,9 @@
 
 - REST Countries
 - OpenWeatherMap
-- ExchangeRate.host
-- Unsplash API
-- AI API(미정)
+- Pexels API
+- Gemini API
+- 공공데이터 포털 한국수출입은행 환율 정보 오픈 API
 
 ## 스탠드업 미팅
 
@@ -116,6 +117,13 @@
         <li>현준님 - AI 봇 컴포넌트 개발</li>
       </ul>
     </li>
+  </ul>
+</details>
+<details>
+  <summary><b>2025년 11월 19일 수요일 13:30 (4일차)</b></summary>
+  <ul>
+    <li>진행 사항 체크</li>
+    <li>희정님 - 리스트 페이지 업무 분담</li>
   </ul>
 </details>
 
@@ -201,7 +209,83 @@
       <summary><b>To Do</b></summary>
         <div>
          <ul>
-           <li>내용 추가</li>
+           <li>자세한 역할 분담</li>
+         </ul> 
+        </div>
+    </details>  
+    <details>
+  <summary><b>2025년 11월 18일 화요일 (3일차)</b></summary>
+    <details> 
+      <summary><b>Done</b></summary>
+        <div>
+         <ul>
+            <li>
+              프로젝트 이름:  TravelNow
+            </li>
+            <li>맡은 api 호출 성공 여부 확인</li>
+          <li>
+          자세한 역할 분담
+        <ul>
+         <li>지형님 - 메인 페이지 및 환율 관련 컴포넌트 개발</li>
+          <li>현정님 - 상세 페이지 개발</li>
+          <li>희정님 - 카드 컴포넌트 개발</li>
+         <li>현준님 - AI 봇 컴포넌트 개발</li>
+        </ul>
+         </li>
+         </ul> 
+        </div>
+    </details>
+    <details>
+      <summary><b>To Do</b></summary>
+        <div>
+         <ul>
+           <li>진행 사항 체크</li>
+           <li>추가 업무 분담</li>
+         </ul> 
+        </div>
+    </details>  
+     <details>
+  <summary><b>2025년 11월 19일 수요일 (4일차)</b></summary>
+    <details> 
+      <summary><b>Done</b></summary>
+        <div>
+         <ul>
+                  <li>
+              지형님 - 환율 계산기 컴포넌트 개발 완료
+            </li>
+            <li>
+              희정님 - 카드 컴포넌트 개발 완료 및 리스트 페이지 추가 업무 분담
+            </li>
+         </ul> 
+        </div>
+    </details>
+    <details>
+      <summary><b>To Do</b></summary>
+        <div>
+         <ul>
+           <li>현정님 - 상세 페이지 개발 진행도 체크</li>
+           <li>현준님 - AI 봇 컴포넌트 개발 진행도 체크</li>
+         </ul> 
+        </div>
+    </details>  
+     <details>
+  <summary><b>2025년 11월 20일 목요일 (5일차)</b></summary>
+    <details> 
+      <summary><b>Done</b></summary>
+        <div>
+         <ul>
+          <li>
+              dev 브랜치 테스트 배포 완료
+            </li>
+         </ul> 
+        </div>
+    </details>
+    <details>
+      <summary><b>To Do</b></summary>
+        <div>
+         <ul>
+       <li>
+            </li>
          </ul> 
         </div>
     </details>  

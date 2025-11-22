@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { videoApi } from "../utils/apis/imageApi";
+import { imageApi } from "../utils/apis/imageApi";
 
-const fetchVideos = ({ queryKey }) => {
+const fetchImages = ({ queryKey }) => {
     const [, keyword, options] = queryKey;
-    return videoApi.get("/search", {
+    return imageApi.get("/search", {
         params: { query: keyword, ...options },
     });
 };
 
-export const useVideosQuery = (keyword, options = {}) => {
+export const useGetImagesQuery = (keyword, options = {}) => {
     return useQuery({
-        queryKey: ["videos", keyword, options],
-        queryFn: fetchVideos,
+        queryKey: ["images", keyword, options],
+        queryFn: fetchImages,
         enabled: !!keyword,
         select: (res) => res.data,
         staleTime: 5 * 60 * 1000,
