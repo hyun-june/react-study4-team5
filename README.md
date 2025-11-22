@@ -138,7 +138,7 @@
   </ul>
 </details>
 <details>
-  <summary><b>2025년 11월 21일 토요일 19:00 (8일차)</b></summary>
+  <summary><b>2025년 11월 21일 토요일 19:00 (7일차)</b></summary>
   <ul>
     <li>모든 코드 dev에 업로드 후 테스트 배포로 오류 및 수정 사안 확인</li>
     <li>
