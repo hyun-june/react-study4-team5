@@ -17,7 +17,7 @@ const srcset = (image, size, rows = 1, cols = 1) => {
 
 const CityImageList = ({ keyword, photos = [] }) => (
     <Wrapper>
-        <Typography variant="h5" sx={{ mb: 2 }}>
+        <Typography fontSize={"1.8rem"} width={"100%"} borderBottom="2px solid #e9e9e9" sx={{ mb: 3, pb: 1 }}>
             한 눈에 보는 {keyword}!
         </Typography>
         <ImageList sx={{ width: "100%", height: "100%" }} variant="quilted" cols={3} rowHeight={120}>
