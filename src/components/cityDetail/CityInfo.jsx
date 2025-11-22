@@ -15,23 +15,29 @@ const Section = styled("section")({
     gap: "30px",
 });
 
-const Wrapper = styled("div")({
+const Wrapper = styled("div")(({ theme }) => ({
     position: "relative",
     width: "100%",
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "flex-start",
     gap: "20px",
-});
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+    },
+}));
 
-const ImgBox = styled("div")({
+const ImgBox = styled("div")(({ theme }) => ({
     height: "520px",
     borderRadius: "32px",
     display: "flex",
     width: "100%",
     overflow: "hidden",
     flex: 1,
-});
+    [theme.breakpoints.down("sm")]: {
+        height: "300px",
+    },
+}));
 
 const TextBox = styled("div")({
     display: "flex",
@@ -122,7 +128,7 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
                     >
                         {keyword}을 소개합니다!
                     </Typography>
-                    <Typography variant="body2" sx={{ whiteSpace: "pre-line" }}>
+                    <Typography fontSize={"1rem"} sx={{ whiteSpace: "pre-line" }}>
                         {aiDescription}
                     </Typography>
                 </TextBox>
@@ -137,45 +143,46 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
                 </ImgBox>
                 <InfoBox>
                     <Box>
-                        <Typography variant="h6" gutterBottom>
+                        <Typography variant="h6" fontSize={"1.2rem"} gutterBottom>
                             나라 정보
                         </Typography>
-                        <Typography variant="body2">이름: {country?.name?.common ?? "-"}</Typography>
-                        <Typography variant="body2">수도: {country?.capital ?? "-"}</Typography>
-                        <Typography variant="body2">
+                        <Typography fontSize={"1rem"}>이름: {country?.name?.common ?? "-"}</Typography>
+                        <Typography fontSize={"1rem"}>수도: {country?.capital ?? "-"}</Typography>
+                        <Typography fontSize={"1rem"}>
                             인구: {country?.population ? country.population.toLocaleString() : "-"}
                         </Typography>
-                        <Typography variant="body2">
+                        <Typography fontSize={"1rem"}>
                             통화:{" "}
                             {country?.currencies
                                 ? Object.entries(country.currencies)
-                                      .map(([key, value]) => `${value.name} (${value.symbol})`)
+                                      .map(([, value]) => `${value.name} (${value.symbol})`)
+                                      .join(", ")
                                 : "-"}
                         </Typography>
                     </Box>
 
-                    <Box>
-                        <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+                    {/* <Box>
+                        <Typography variant="h6" fontSize={"1.2rem"} gutterBottom sx={{ mt: 3 }}>
                             환율 정보
                         </Typography>
-                        <Typography variant="body2">
-                            원화 10,000원 = {exchangeRate ? (10000 / exchangeRate).toFixed(2) : "-"}
+                        <Typography fontSize={"1rem"}>
+                            원화 10,000원 = {convertedAmount ? `${convertedAmount} ${currencySymbol}` : "-"}
                         </Typography>
-                    </Box>
+                    </Box> */}
 
                     <Box>
-                        <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+                        <Typography variant="h6" fontSize={"1.2rem"} gutterBottom sx={{ mt: 3 }}>
                             현재 날씨
                         </Typography>
-                        <Typography variant="body2">상태: {currentWeather}</Typography>
-                        <Typography variant="body2">
+                        <Typography fontSize={"1rem"}>상태: {currentWeather}</Typography>
+                        <Typography fontSize={"1rem"}>
                             기온: {currentTemp !== undefined ? `${currentTemp.toFixed(1)}°C` : "-"}
                         </Typography>
-                        <Typography variant="body2">
+                        <Typography fontSize={"1rem"}>
                             체감: {feelsLike !== undefined ? `${feelsLike.toFixed(1)}°C` : "-"}
                         </Typography>
-                        <Typography variant="body2">습도: {humidity !== undefined ? `${humidity}%` : "-"}</Typography>
-                        <Typography variant="body2">
+                        <Typography fontSize={"1rem"}>습도: {humidity !== undefined ? `${humidity}%` : "-"}</Typography>
+                        <Typography fontSize={"1rem"}>
                             풍속: {windSpeed !== undefined ? `${windSpeed} m/s` : "-"}
                         </Typography>
                     </Box>
