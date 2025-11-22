@@ -35,6 +35,12 @@ const CityVideo = ({ keyword, mainVideo }) => (
                         mainVideo.video_files.find((file) => file.quality === "sd")?.link ??
                         mainVideo.video_files[0]?.link
                     }
+                    sx={{
+                        maxHeight: "520px",
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                    }}
                 />
                 <CardContent sx={{ py: 1.5, px: 2, backgroundColor: "#111" }}>
                     <Typography variant="body2" color="#eee">
