@@ -97,8 +97,12 @@ const Home = () => {
           mt: 4,
         }}
       >
-        <Typography variant="h3" component="h2">
-          인기 여행지
+        <Typography
+          variant="h4"
+          component="h2"
+          sx={{ mb: 4, mt: 3, fontWeight: 700 }}
+        >
+          인기 도시 투어
         </Typography>
       </Box>
 

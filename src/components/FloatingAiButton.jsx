@@ -146,7 +146,7 @@ const AiChatMessage = styled(Typography)({
 const UserChatMessage = styled(Typography)({
   backgroundColor: "var(--main-point-green)",
   borderRadius: 10,
-  padding: "0 10px",
+  // padding: "0 10px",
   alignSelf: "flex-end",
   padding: "5px 15px",
   maxWidth: "90%",
