@@ -133,12 +133,18 @@
 <details>
   <summary><b>2025년 11월 19일 수요일 13:30 (4일차)</b></summary>
   <ul>
-    <li>진행 사항 체크</li>
+    <li>진행 사항 체크(현준님,희정님,지형님)</li>
     
   </ul>
 </details>
 <details>
-  <summary><b>2025년 11월 21일 토요일 19:00 (7일차)</b></summary>
+  <summary><b>2025년 11월 20일 목요일 20:00 (5일차)</b></summary>
+  <ul>
+    <li>진행 사항 체크(현준님,현정님,지형님)</li>
+  </ul>
+</details>
+<details>
+  <summary><b>2025년 11월 22일 토요일 19:00 (7일차)</b></summary>
   <ul>
     <li>모든 코드 dev에 업로드 후 테스트 배포로 오류 및 수정 사안 확인</li>
     <li>
