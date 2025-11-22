@@ -19,7 +19,7 @@ const ConverterContainer = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "#ffffff",
-  paddingTop: "4rem",
+  paddingTop: "3rem",
 });
 
 const ConverterBox = styled(Box)({
@@ -38,7 +38,7 @@ const ConverterBox = styled(Box)({
 
 const ConverterTitle = styled(Typography)({
   fontFamily: "Pretendard",
-  fontSize: "1.875rem",
+  fontSize: "2rem",
   fontWeight: "800",
 });
 
@@ -180,6 +180,14 @@ const CurrencyInfoBox = styled(Box)({
   paddingBottom: "0.875rem",
 });
 
+const NoDataText = styled(Typography)({
+  fontFamily: "Pretendard",
+  color: "#f04747ff",
+  fontWeight: "700",
+  textAlign: "center",
+  marginBottom: "0.5rem",
+});
+
 const CurrencyConverter = () => {
   const [selectedCountry, setSelectedCountry] = useState("유로");
   const [foreignAmount, setForeignAmount] = useState("");
@@ -187,7 +195,7 @@ const CurrencyConverter = () => {
 
   const { data, isLoading, isError, error } = useGetExchangeRateQuery(today);
 
-  console.log(data);
+  const exchangeList = Array.isArray(data?.data) ? data.data : [];
 
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
@@ -247,6 +255,15 @@ const CurrencyConverter = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <ConverterContainer>
+        <ConverterTitle>환율 계산기</ConverterTitle>
+        <InfoText>{error}</InfoText>
+      </ConverterContainer>
+    );
+  }
+
   return (
     <ConverterContainer>
       <ConverterTitle>환율 계산기</ConverterTitle>
@@ -284,11 +301,15 @@ const CurrencyConverter = () => {
               <MenuItem value="" disabled>
                 통화 선택
               </MenuItem>
-              {data?.data?.map((country) => (
-                <MenuItem key={country.cur_unit} value={country.cur_nm}>
-                  {country.cur_nm} ({country.cur_unit})
-                </MenuItem>
-              ))}
+              {Array.isArray(data?.data) && data.data.length > 0 ? (
+                data.data.map((country) => (
+                  <MenuItem key={country.cur_unit} value={country.cur_nm}>
+                    {country.cur_nm} ({country.cur_unit})
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem disabled>환율 정보를 불러오지 못했습니다.</MenuItem>
+              )}
             </CurrencySelect>
             <AmountInput
               type="number"
@@ -318,11 +339,17 @@ const CurrencyConverter = () => {
           </KoreaBox>
         </CurrencyBox>
 
-        {selectedCountry && (
+        {selectedCountry && exchangeList.length > 0 ? (
           <CurrencyInfoBox>
             1 {selectedCountry} ={" "}
-            {data?.data?.find((c) => c.cur_nm === selectedCountry)?.bkpr} 원
+            {exchangeList.find((c) => c.cur_nm === selectedCountry)?.bkpr} 원
           </CurrencyInfoBox>
+        ) : (
+          <NoDataText>
+            환율 정보를 불러오지 못했습니다 :(
+            <br></br>
+            다시 시도해주세요.
+          </NoDataText>
         )}
       </ConverterBox>
     </ConverterContainer>
