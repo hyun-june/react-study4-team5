@@ -78,10 +78,9 @@ const TravelCard = ({ countryName, cityName }) => {
             <Card
                 sx={{
                     width: 300,
-                    margin: 1,
-                    position: "relative",
                     height: 400,
-                    mb: 10,
+                    position: "relative",
+                    mb: 6,
                     backgroundColor: "black",
                 }}
             >
