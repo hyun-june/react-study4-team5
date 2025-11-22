@@ -113,6 +113,8 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
             <Wrapper>
                 <TextBox>
                     <Typography
+                        component={"h2"}
+                        fontWeight={600}
                         fontSize={"1.8rem"}
                         width={"100%"}
                         borderBottom="2px solid #e9e9e9"
@@ -144,7 +146,11 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
                             인구: {country?.population ? country.population.toLocaleString() : "-"}
                         </Typography>
                         <Typography variant="body2">
-                            통화: {country?.currencies ? Object.keys(country.currencies).join(", ") : "-"}
+                            통화:{" "}
+                            {country?.currencies
+                                ? Object.entries(country.currencies)
+                                      .map(([key, value]) => `${value.name} (${value.symbol})`)
+                                : "-"}
                         </Typography>
                     </Box>
 

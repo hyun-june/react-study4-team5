@@ -8,7 +8,14 @@ const Wrapper = styled("section")({
 
 const CityVideo = ({ keyword, mainVideo }) => (
     <Wrapper>
-        <Typography fontSize={"1.8rem"} width={"100%"} borderBottom="2px solid #e9e9e9" sx={{ mb: 3, pb: 1 }}>
+        <Typography
+            component={"h2"}
+            fontWeight={600}
+            fontSize={"1.8rem"}
+            width={"100%"}
+            borderBottom="2px solid #e9e9e9"
+            sx={{ mb: 3, pb: 1 }}
+        >
             {keyword}의 생생한 현장을 확인하세요!
         </Typography>
 
