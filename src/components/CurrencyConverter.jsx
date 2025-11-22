@@ -19,7 +19,7 @@ const ConverterContainer = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "#ffffff",
-  paddingTop: "3rem",
+  paddingTop: "6rem",
 });
 
 const ConverterBox = styled(Box)({

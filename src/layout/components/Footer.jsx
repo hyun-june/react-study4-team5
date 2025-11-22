@@ -1,8 +1,8 @@
-import { Box, Grid, Link, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { styled } from "@mui/material/styles";
-
 import TravelNowLogo from "../../assets/TravelNow_Logo_black.png";
+import { useNavigate } from "react-router";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -24,6 +24,7 @@ const LogoBox = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   gap: "0.8rem",
+  cursor: "pointer",
 });
 
 const LogoImg = styled(Box)({
@@ -90,9 +91,10 @@ const DevelopersInfo = ({ name, url }) => {
 };
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <FooterContainer>
-      <LogoBox>
+      <LogoBox onClick={() => navigate("/")}>
         <LogoImg component="img" src={TravelNowLogo} />
         <FooterTitle color="black">Travel Now</FooterTitle>
       </LogoBox>

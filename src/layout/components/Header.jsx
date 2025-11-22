@@ -37,6 +37,7 @@ const LogoBox = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   gap: "0.5rem",
+  cursor: "pointer",
 });
 
 const LogoImg = styled(Box)({
@@ -85,7 +86,7 @@ const HeaderSearchBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   border: "0.8px solid white",
   borderRadius: "30px",
-  width: "140px",
+  width: "200px",
   paddingInline: 8,
   paddingBlock: 2,
   backgroundColor: "rgba(0, 0, 0, 0.1)",
@@ -99,7 +100,7 @@ const HeaderSearch = styled(TextField)(({ theme }) => ({
   fontFamily: "Pretendard",
   "& .MuiInputBase-root": {
     height: "28px",
-    width: "120px",
+    width: "100%",
     color: "white",
   },
   "& .MuiInputBase-input": {
@@ -183,17 +184,16 @@ const Header = () => {
 
   const searchByKeyword = (e) => {
     e.preventDefault();
-
-    navigate(`/cities?q=${keyword}`);
+    navigate(`/city/detail?name=${keyword}`);
     setKeyword("");
   };
 
   return (
     <HeaderContainer>
       <Box display={"flex"} gap={3}>
-        <LogoBox>
+        <LogoBox onClick={() => navigate("/")}>
           <LogoImg component="img" src={TravelNowLogo} />
-          <LogoTitle onClick={() => navigate("/")}>Travel Now</LogoTitle>
+          <LogoTitle>Travel Now</LogoTitle>
         </LogoBox>
         <HeaderMenuContainer>
           <HeaderMenuButton onClick={() => navigate("/")}>
@@ -210,6 +210,7 @@ const Header = () => {
           <HeaderSearch
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
+            placeholder="영문으로 입력해 주세요"
           />
         </HeaderSearchBox>
         {isLogin ? (
@@ -262,6 +263,7 @@ const Header = () => {
             <HeaderSearch
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
+              placeholder="영문으로 입력해 주세요"
             />
           </HeaderSearchBox>
         </Box>
