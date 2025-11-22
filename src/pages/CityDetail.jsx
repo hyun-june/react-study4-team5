@@ -9,7 +9,7 @@ import CityVideo from "../components/cityDetail/CityVideo";
 import CityMore from "../components/cityDetail/CityMore";
 import styled from "@emotion/styled";
 
-const Wrapper = styled(Box)({
+const Wrapper = styled("section")({
   width: "100%",
   maxWidth: 1280,
   display: "flex",
