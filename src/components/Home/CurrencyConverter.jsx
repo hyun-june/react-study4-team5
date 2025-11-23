@@ -360,7 +360,8 @@ const CurrencyConverter = () => {
             </CurrencyInfoBox>
           ) : (
             <TimeInfo>
-              ※ 오전 11시 이전에는 당일이 아닌 전날 기준 데이터를 사용합니다.
+              ※ 오전 11시 이전에는 전일 기준, 주말에는 금요일 기준 데이터를
+              사용합니다.
             </TimeInfo>
           )
         ) : (
