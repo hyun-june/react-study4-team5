@@ -32,7 +32,7 @@ const TravelCard = ({ data }) => {
 
   const navigate = useNavigate();
 
-  const handleMoreInfo = () => {
+  const handleMoreInfo = (e) => {
     const keyword = countryName;
     navigate(`/city/detail?name=${encodeURIComponent(keyword)}`);
   };
@@ -72,7 +72,13 @@ const TravelCard = ({ data }) => {
   }, [cityName, countryName]);
 
   return (
-    <Box onClick={handleMoreInfo} sx={{ cursor: "pointer" }}>
+    <Box
+      onClick={(e) => {
+        if (e.target.closest(".favorite-btn")) return;
+        handleMoreInfo();
+      }}
+      sx={{ cursor: "pointer" }}
+    >
       <Card
         sx={{
           width: 300,
@@ -103,6 +109,7 @@ const TravelCard = ({ data }) => {
             ></Box>
             <IconButton
               aria-label="add to favorites"
+              className="favorite-btn"
               onClick={handleFavoriteClick}
               sx={{
                 position: "absolute",
