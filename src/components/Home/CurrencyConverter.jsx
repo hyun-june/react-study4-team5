@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-import { useGetExchangeRateQuery } from "../hooks/useGetExchangeRate";
-import { today } from "../constants/todayDate";
+import { useGetExchangeRateQuery } from "../../hooks/useGetExchangeRate";
+import { today } from "../../constants/todayDate";
 import { styled } from "@mui/material/styles";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
@@ -19,7 +19,6 @@ const ConverterContainer = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "#ffffff",
-  paddingTop: "6rem",
 });
 
 const ConverterBox = styled(Box)({
@@ -28,7 +27,7 @@ const ConverterBox = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   gap: 16,
-  marginBottom: "4rem",
+  marginBottom: "10rem",
   borderRadius: "30px",
   padding: "0.3rem",
   border: "1px solid #cfcfcfff",
@@ -361,7 +360,8 @@ const CurrencyConverter = () => {
             </CurrencyInfoBox>
           ) : (
             <TimeInfo>
-              ※ 오전 11시 이전에는 당일이 아닌 전날 기준 데이터를 사용합니다.
+              ※ 오전 11시 이전에는 전일 기준, 주말에는 금요일 기준 데이터를
+              사용합니다.
             </TimeInfo>
           )
         ) : (
