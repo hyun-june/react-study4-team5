@@ -10,6 +10,7 @@ const FloatingWrapper = styled(Box)({
   position: "fixed",
   bottom: 30,
   right: 30,
+  zIndex: 999,
 });
 
 const FloatingButton = styled(Button)(({ theme }) => ({
@@ -60,7 +61,6 @@ const AiChatBox = styled(Box)(({ theme }) => ({
   right: 10,
   display: "flex",
   flexDirection: "column",
-  zIndex: 9999999,
   backgroundColor: "white",
 
   [theme.breakpoints.down("sm")]: {

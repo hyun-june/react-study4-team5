@@ -73,8 +73,8 @@ const CityDetail = () => {
   return (
     <Wrapper>
       <CityVisual keyword={keyword} photos={photos} />
-      <CityInfo keyword={keyword} photos={photos} />
       <CityImageList keyword={keyword} photos={photos} />
+      <CityInfo keyword={keyword} photos={photos} />
       <CityVideo keyword={keyword} mainVideo={mainVideo} />
       <CityMore />
     </Wrapper>
