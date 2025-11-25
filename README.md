@@ -186,12 +186,6 @@
     </li>
   </ul>
 </details>
-<details>
-  <summary><b>2025년 11월 20일 목요일 20:00 (5일차)</b></summary>
-  <ul>
-    <li>진행 사항 체크</li>
-  </ul>
-</details>
 
 ## 개발 일지
 

@@ -11,6 +11,6 @@ export const useGetExchangeRateQuery = (date) => {
   return useQuery({
     queryKey: ["exchange-rate", date],
     queryFn: () => fetchExchangeRate(date),
-    staleTime: 1000 * 60 * 60,
+    staleTime: 3000 * 60 * 60,
   });
 };

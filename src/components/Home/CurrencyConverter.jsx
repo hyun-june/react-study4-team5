@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 
-import { useGetExchangeRateQuery } from "../hooks/useGetExchangeRate";
-import { today } from "../constants/todayDate";
+import { useGetExchangeRateQuery } from "../../hooks/useGetExchangeRate";
+import { today } from "../../constants/todayDate";
 import { styled } from "@mui/material/styles";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
@@ -19,7 +19,6 @@ const ConverterContainer = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   backgroundColor: "#ffffff",
-  paddingTop: "4rem",
 });
 
 const ConverterBox = styled(Box)({
@@ -28,7 +27,7 @@ const ConverterBox = styled(Box)({
   justifyContent: "center",
   alignItems: "center",
   gap: 16,
-  marginBottom: "4rem",
+  marginBottom: "10rem",
   borderRadius: "30px",
   padding: "0.3rem",
   border: "1px solid #cfcfcfff",
@@ -38,7 +37,7 @@ const ConverterBox = styled(Box)({
 
 const ConverterTitle = styled(Typography)({
   fontFamily: "Pretendard",
-  fontSize: "1.875rem",
+  fontSize: "2rem",
   fontWeight: "800",
 });
 
@@ -180,14 +179,36 @@ const CurrencyInfoBox = styled(Box)({
   paddingBottom: "0.875rem",
 });
 
+const NoDataText = styled(Typography)({
+  fontFamily: "Pretendard",
+  color: "#f04747ff",
+  fontWeight: "700",
+  textAlign: "center",
+  marginBottom: "0.5rem",
+});
+
+const TimeInfo = styled(Typography)(({ theme }) => ({
+  fontFamily: "Pretendard",
+  color: "#595959ff",
+  fontSize: "0.875rem",
+  fontWeight: "400",
+  textAlign: "center",
+  marginBottom: "0.5rem",
+  whiteSpace: "normal",
+  wordBreak: "keep-all",
+  [theme.breakpoints.down("sm")]: {
+    width: "200px",
+  },
+}));
+
 const CurrencyConverter = () => {
-  const [selectedCountry, setSelectedCountry] = useState("유로");
+  const [selectedCountry, setSelectedCountry] = useState("");
   const [foreignAmount, setForeignAmount] = useState("");
   const [krwAmount, setKrwAmount] = useState("");
 
   const { data, isLoading, isError, error } = useGetExchangeRateQuery(today);
 
-  console.log(data);
+  const exchangeList = Array.isArray(data?.data) ? data.data : [];
 
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
@@ -247,6 +268,15 @@ const CurrencyConverter = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <ConverterContainer>
+        <ConverterTitle>환율 계산기</ConverterTitle>
+        <InfoText>{error}</InfoText>
+      </ConverterContainer>
+    );
+  }
+
   return (
     <ConverterContainer>
       <ConverterTitle>환율 계산기</ConverterTitle>
@@ -284,11 +314,15 @@ const CurrencyConverter = () => {
               <MenuItem value="" disabled>
                 통화 선택
               </MenuItem>
-              {data?.data?.map((country) => (
-                <MenuItem key={country.cur_unit} value={country.cur_nm}>
-                  {country.cur_nm} ({country.cur_unit})
-                </MenuItem>
-              ))}
+              {Array.isArray(data?.data) && data.data.length > 0 ? (
+                data.data.map((country) => (
+                  <MenuItem key={country.cur_unit} value={country.cur_nm}>
+                    {country.cur_nm} ({country.cur_unit})
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem disabled>환율 정보를 불러오지 못했습니다.</MenuItem>
+              )}
             </CurrencySelect>
             <AmountInput
               type="number"
@@ -318,11 +352,24 @@ const CurrencyConverter = () => {
           </KoreaBox>
         </CurrencyBox>
 
-        {selectedCountry && (
-          <CurrencyInfoBox>
-            1 {selectedCountry} ={" "}
-            {data?.data?.find((c) => c.cur_nm === selectedCountry)?.bkpr} 원
-          </CurrencyInfoBox>
+        {exchangeList.length > 0 ? (
+          selectedCountry ? (
+            <CurrencyInfoBox>
+              1 {selectedCountry} ={" "}
+              {exchangeList.find((c) => c.cur_nm === selectedCountry)?.bkpr} 원
+            </CurrencyInfoBox>
+          ) : (
+            <TimeInfo>
+              ※ 오전 11시 이전에는 전일 기준, 주말에는 금요일 기준 데이터를
+              사용합니다.
+            </TimeInfo>
+          )
+        ) : (
+          <NoDataText>
+            환율 정보를 불러오지 못했습니다 :(
+            <br />
+            다시 시도해주세요.
+          </NoDataText>
         )}
       </ConverterBox>
     </ConverterContainer>

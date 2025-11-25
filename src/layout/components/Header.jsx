@@ -1,14 +1,17 @@
 import { styled } from "@mui/material/styles";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Box, Button, Drawer, TextField, Typography } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router";
-
+import LogoutIcon from "@mui/icons-material/Logout";
+import CloseIcon from "@mui/icons-material/Close";
 import TravelNowLogo from "../../assets/TravelNow_Logo_white.png";
+import { useLoginStore } from "../../store/useLoginStore";
+import { useToastStore } from "../../store/useToastStore";
+import { useState } from "react";
 
-const HeaderContainer = styled(Box)({
+const HeaderContainer = styled(Box)(({ theme }) => ({
   position: "fixed",
   top: 0,
   left: 0,
@@ -16,19 +19,25 @@ const HeaderContainer = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  paddingBlock: "1.5rem",
+  paddingTop: "1.5rem",
+  paddingBottom: "1.3rem",
   paddingInline: "2rem",
   backdropFilter: "blur(3px)",
-  backgroundColor: "rgba(100, 100, 100, 0.1)",
-  boxShadow: "4px 4px 10px rgba(100, 100, 100, 0.1)",
-  zIndex: 1000,
-});
+  backgroundColor: "rgba(100, 100, 100, 0.3)",
+  boxShadow: "0px 10px 10px rgba(100, 100, 100, 0.3)",
+  zIndex: 10000,
+  [theme.breakpoints.down("md")]: {
+    paddingTop: "1rem",
+    paddingBottom: "0.8rem",
+  },
+}));
 
 const LogoBox = styled(Box)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   gap: "0.5rem",
+  cursor: "pointer",
 });
 
 const LogoImg = styled(Box)({
@@ -59,6 +68,9 @@ const HeaderMenuButton = styled(Button)({
   fontFamily: "Pretendard",
   fontWeight: "300",
   fontSize: "12px",
+  "&:hover": {
+    backgroundColor: "transparent",
+  },
 });
 
 const HeaderIconBox = styled(Box)(({ theme }) => ({
@@ -71,22 +83,28 @@ const HeaderIconBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const HeaderSearchBox = styled(Box)({
+const HeaderSearchBox = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   border: "0.8px solid white",
   borderRadius: "30px",
+  width: "200px",
   paddingInline: 8,
   paddingBlock: 2,
-  backgroundColor: "rgba(255, 255, 255, 0.15)",
-});
+  backgroundColor: "rgba(0, 0, 0, 0.1)",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    justifyContent: "space-between",
+    backgroundColor: "rgba(199, 199, 199, 1)",
+  },
+}));
 
-const HeaderSearch = styled(TextField)({
+const HeaderSearch = styled(TextField)(({ theme }) => ({
   fontFamily: "Pretendard",
   "& .MuiInputBase-root": {
-    height: "24px",
-    width: "100px",
+    height: "28px",
+    width: "100%",
     color: "white",
   },
   "& .MuiInputBase-input": {
@@ -96,7 +114,13 @@ const HeaderSearch = styled(TextField)({
   "& fieldset": {
     border: "none",
   },
-});
+  [theme.breakpoints.down("md")]: {
+    "& .MuiInputBase-root": {
+      width: "200px",
+      height: "32px",
+    },
+  },
+}));
 
 const MobileMenu = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -106,15 +130,93 @@ const MobileMenu = styled(Box)(({ theme }) => ({
   },
 }));
 
+const MenuDrawer = styled(Drawer)({
+  display: "flex",
+  flexDirection: "column",
+  height: "100vh",
+  zIndex: 100001,
+  "& .MuiPaper-root": {
+    backgroundColor: "rgba(255, 255, 255, 1)",
+    paddingBlock: "2rem",
+    paddingInline: "3rem",
+    width: "250px",
+    color: "white",
+  },
+});
+
+const DrawerTitle = styled(Typography)({
+  color: "black",
+  fontFamily: "Stack Sans Notch",
+  fontSize: "2rem",
+  fontWeight: "900",
+  letterSpacing: "-0.5px",
+  cursor: "pointer",
+});
+
+const MobileDrawerButton = styled(Button)({
+  fontFamily: "Pretendard",
+  justifyContent: "flex-start",
+  fontWeight: "600",
+  color: "#000000",
+  transition: "color 0.2s ease",
+  "&:hover": {
+    color: "var(--main-point-green)",
+    backgroundColor: "transparent",
+  },
+});
+
+const MobileLoginButton = styled(Button)({
+  display: "flex",
+  justifyContent: "flex-start",
+  gap: "0.625rem",
+  borderTop: "1px solid #c3c3c3ff",
+  paddingBlock: "2rem",
+  "&:hover": {
+    color: "var(--main-point-green)",
+    backgroundColor: "transparent",
+  },
+});
+
+const MobileLoginText = styled(Typography)({
+  fontFamily: "Pretendard",
+  fontWeight: "600",
+  color: "#000000",
+  fontSize: "0.875rem",
+});
+
 const Header = () => {
   const navigate = useNavigate();
+  const { setToast } = useToastStore();
+  const { isLogin, logout } = useLoginStore();
+  const [open, setOpen] = useState(false);
+  const [keyword, setKeyword] = useState("");
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  const handleLogout = () => {
+    setToast({ type: "success", msg: "로그아웃 성공" });
+    logout();
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setOpen(false);
+  };
+
+  const searchByKeyword = (e) => {
+    e.preventDefault();
+    navigate(`/city/detail?name=${keyword}`);
+    setKeyword("");
+  };
 
   return (
     <HeaderContainer>
       <Box display={"flex"} gap={3}>
-        <LogoBox>
+        <LogoBox onClick={() => navigate("/")}>
           <LogoImg component="img" src={TravelNowLogo} />
-          <LogoTitle onClick={() => navigate("/")}>Travel Now</LogoTitle>
+          <LogoTitle>Travel Now</LogoTitle>
         </LogoBox>
         <HeaderMenuContainer>
           <HeaderMenuButton onClick={() => navigate("/")}>
@@ -126,22 +228,120 @@ const Header = () => {
         </HeaderMenuContainer>
       </Box>
       <HeaderIconBox>
-        <HeaderSearchBox>
+        <HeaderSearchBox component="form" onSubmit={searchByKeyword}>
           <SearchIcon fontSize="small" sx={{ color: "white" }} />
-          <HeaderSearch />
+          <HeaderSearch
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder="영문으로 입력해 주세요"
+          />
         </HeaderSearchBox>
-        <LoginIcon
-          fontSize="small"
-          sx={{ color: "white" }}
-          onClick={() => navigate("/login")}
-          cursor={"pointer"}
-        />
+        {isLogin ? (
+          <LogoutIcon
+            sx={{ color: "white" }}
+            cursor={"pointer"}
+            onClick={handleLogout}
+          />
+        ) : (
+          <LoginIcon
+            fontSize="small"
+            sx={{ color: "white" }}
+            onClick={() => navigate("/login")}
+            cursor={"pointer"}
+          />
+        )}
       </HeaderIconBox>
       <MobileMenu>
-        <HeaderMenuButton>
+        <HeaderMenuButton onClick={toggleDrawer(true)}>
           <MenuIcon />
         </HeaderMenuButton>
       </MobileMenu>
+      <MenuDrawer anchor="right" open={open} onClick={toggleDrawer(false)}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 4,
+          }}
+        >
+          <DrawerTitle onClick={() => handleNavigation("/")}>
+            Travel Now
+          </DrawerTitle>
+          <HeaderMenuButton onClick={toggleDrawer(false)}>
+            <CloseIcon sx={{ color: "black" }} />
+          </HeaderMenuButton>
+        </Box>
+        <Box
+          onClick={(e) => e.stopPropagation()}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            mb: 3,
+          }}
+        >
+          <HeaderSearchBox component="form" onSubmit={searchByKeyword}>
+            <SearchIcon fontSize="small" sx={{ color: "white" }} />
+            <HeaderSearch
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="영문으로 입력해 주세요"
+            />
+          </HeaderSearchBox>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            height: "100%",
+            justifyContent: "space-between",
+            paddingBottom: "3rem",
+            gap: 1,
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 1,
+            }}
+          >
+            <MobileDrawerButton
+              disableRipple
+              fullWidth
+              onClick={() => handleNavigation("/")}
+            >
+              Home
+            </MobileDrawerButton>
+            <MobileDrawerButton
+              disableRipple
+              fullWidth
+              onClick={() => handleNavigation("/cities")}
+            >
+              Cities
+            </MobileDrawerButton>
+          </Box>
+          {isLogin ? (
+            <MobileLoginButton disableTouchRipple onClick={handleLogout}>
+              <LogoutIcon sx={{ color: "black" }} cursor={"pointer"} />
+              <MobileLoginText>로그아웃</MobileLoginText>
+            </MobileLoginButton>
+          ) : (
+            <MobileLoginButton
+              disableTouchRipple
+              onClick={() => navigate("/login")}
+            >
+              <LoginIcon
+                fontSize="small"
+                sx={{ color: "black" }}
+                cursor={"pointer"}
+              />
+              <MobileLoginText>로그인</MobileLoginText>
+            </MobileLoginButton>
+          )}
+        </Box>
+      </MenuDrawer>
     </HeaderContainer>
   );
 };

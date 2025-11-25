@@ -1,49 +1,75 @@
-import styled from "@emotion/styled";
+import { styled } from "@mui/material/styles";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import { useChatStore } from "../store/useChatStore";
 import { getAi } from "../utils/apis/geminiAPI";
+import TryIcon from "@mui/icons-material/Try";
 
 const FloatingWrapper = styled(Box)({
   position: "fixed",
   bottom: 30,
   right: 30,
+  zIndex: 999,
 });
 
-const FloatingButton = styled(Button)({
-  border: "1px solid gray",
+const FloatingButton = styled(Button)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   padding: "1em",
-  borderRadius: 50,
-  backgroundColor: "white",
-  color: "black",
-  width: 50,
-  height: 50,
+  borderRadius: 30,
+  background: `
+      radial-gradient(circle at top left, #5befaaff, transparent 70%),
+      radial-gradient(circle at top right, #eb66ffff, transparent 70%),
+      radial-gradient(circle at bottom left, #a7eb32ff, transparent 70%),
+      radial-gradient(circle at bottom right, #ffcc00, transparent 70%),
+      #ffffff
+    `,
+  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+  width: 70,
+  height: 70,
   minWidth: 0,
+  color: "#ffffffff",
+  fontWeight: "bold",
+  boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
 
   "&:hover": {
-    backgroundColor: "black",
-    color: "white",
+    transform: "scale(0.95)",
   },
-});
 
-const AiChatBox = styled(Box)({
+  [theme.breakpoints.down("sm")]: {
+    width: 60,
+    height: 60,
+    padding: "0.5em",
+    bottom: 0,
+    right: 0,
+    borderRadius: 26,
+  },
+}));
+
+const AiChatBox = styled(Box)(({ theme }) => ({
   boxShadow:
     "-4px -4px 8px rgba(100, 100, 100, 0.1), 4px 4px 10px rgba(100, 100, 100, 0.1)",
   borderRadius: 30,
   overflow: "visible",
   position: "absolute",
-  top: -400,
-  width: 300,
-  maxWidth: 300,
+  maxWidth: 400,
+  maxHeight: 400,
   height: 400,
+  top: -420,
   right: 10,
   display: "flex",
   flexDirection: "column",
-  // padding: 10,
-  zIndex: 999,
   backgroundColor: "white",
-});
+
+  [theme.breakpoints.down("sm")]: {
+    maxWidth: 380,
+    maxHeight: 400,
+    top: -420,
+    right: -5,
+  },
+}));
 
 const AiChatInner = styled(Box)({
   flex: 1,
@@ -58,7 +84,7 @@ const AiChatInner = styled(Box)({
 
 const AiChatInputBox = styled(Box)({
   position: "relative",
-  margin: "0.5em",
+  margin: "1em",
 });
 
 const AiChatInput = styled(TextField)({
@@ -121,8 +147,7 @@ const AiChatButton = styled(Button)({
 });
 
 const AiChatMessage = styled(Typography)({
-  backgroundColor: "blue",
-  color: "white",
+  backgroundColor: "#f1f0f5",
   borderRadius: 10,
   padding: "5px 15px",
   maxWidth: "90%",
@@ -132,10 +157,8 @@ const AiChatMessage = styled(Typography)({
 });
 
 const UserChatMessage = styled(Typography)({
-  backgroundColor: "gray",
-  color: "white",
+  backgroundColor: "var(--main-point-green)",
   borderRadius: 10,
-  padding: "0 10px",
   alignSelf: "flex-end",
   padding: "5px 15px",
   maxWidth: "90%",
@@ -187,6 +210,11 @@ const FloatingAiButton = () => {
       {isOpen && (
         <AiChatBox>
           <AiChatInner ref={chatRef}>
+            <AiChatMessage>
+              안녕하세요! 😊 <br />
+              오늘의 여행, 어디로 떠나고 싶으신가요? <br />
+              궁금한 점을 말씀해 주세요.
+            </AiChatMessage>
             {messages.map(({ type, text }, index) =>
               type === "user" ? (
                 <UserChatMessage key={index}>{text}</UserChatMessage>
@@ -208,7 +236,15 @@ const FloatingAiButton = () => {
           </AiChatInputBox>
         </AiChatBox>
       )}
-      <FloatingButton onClick={handleToggle}>AI</FloatingButton>
+      <FloatingButton onClick={handleToggle}>
+        <TryIcon
+          sx={{
+            width: { xs: "32px", sm: "36px" },
+            height: { xs: "32px", sm: "36px" },
+            transform: "scaleX(-1)",
+          }}
+        />
+      </FloatingButton>
     </FloatingWrapper>
   );
 };

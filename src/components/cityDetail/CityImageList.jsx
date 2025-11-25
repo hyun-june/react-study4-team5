@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
 import { Container, Typography, ImageList, ImageListItem } from "@mui/material";
 
-const Wrapper = styled(Container)({
-    padding: "100px 0 32px",
+const Wrapper = styled("section")({
+    margin: "100px 0 32px",
     width: "100%",
 });
 
@@ -17,27 +17,22 @@ const srcset = (image, size, rows = 1, cols = 1) => {
 
 const CityImageList = ({ keyword, photos = [] }) => (
     <Wrapper>
-        <Typography variant="h5" sx={{ mb: 2 }}>
+        <Typography
+            component={"h2"}
+            fontWeight={600}
+            fontSize={"1.8rem"}
+            width={"100%"}
+            borderBottom="2px solid #e9e9e9"
+            sx={{ mb: 3, pb: 1 }}
+        >
             한 눈에 보는 {keyword}!
         </Typography>
-        <ImageList
-            sx={{ width: "100%", maxWidth: 1280, height: 600, mb: 1 }}
-            variant="quilted"
-            cols={4}
-            rowHeight={120}
-        >
-            {/* {photos.map((photo) => (
-                <ImageListItem key={photo.id} cols={photo.cols ?? 1} rows={photo.rows ?? 1}>
-                    <img {...srcset(photo.src.medium, 120, photo.rows, photo.cols)} alt={photo.alt} loading="lazy" />
-                    <Typography color="text.secondary">{photo.alt}</Typography>
-                </ImageListItem>
-            ))} */}
-
+        <ImageList sx={{ width: "100%", height: "100%" }} variant="quilted" cols={3} rowHeight={120}>
             {photos.map((photo, index) => {
                 const sizes = [
-                    { cols: 1, rows: 1 },
+                    { cols: 3, rows: 1 },
                     { cols: 2, rows: 1 },
-                    { cols: 1, rows: 2 },
+                    { cols: 1, rows: 3 },
                     { cols: 2, rows: 2 },
                 ];
                 const { cols, rows } = sizes[index % sizes.length];
@@ -45,7 +40,7 @@ const CityImageList = ({ keyword, photos = [] }) => (
                 return (
                     <ImageListItem key={photo.id} cols={cols} rows={rows}>
                         <img {...srcset(photo.src.medium, 120, rows, cols)} alt={photo.alt} loading="lazy" />
-                        <Typography color="text.secondary">{photo.alt}</Typography>
+                        {/* <Typography color="text.secondary">{photo.alt}</Typography> */}
                     </ImageListItem>
                 );
             })}

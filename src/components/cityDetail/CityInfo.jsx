@@ -1,27 +1,50 @@
 import { useMemo } from "react";
 import { styled } from "@mui/material/styles";
-import { Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { useGetExchangeRateQuery } from "../../hooks/useGetExchangeRate";
 import { useGetWeatherQuery } from "../../hooks/useGetWeather";
 import { useGetCountryQuery } from "../../hooks/useGetCountry";
+import { useGetCityDescriptionQuery } from "../../hooks/useGetCityDescription";
 
-const Wrapper = styled(Container)({
+const Section = styled("section")({
     position: "relative",
-    padding: "100px 0 32px",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    padding: "112px 0 32px",
+    gap: "30px",
+});
+
+const Wrapper = styled("div")(({ theme }) => ({
+    position: "relative",
     width: "100%",
     display: "flex",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    color: "#f9f9f9",   
-});  
+    gap: "20px",
+    [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+    },
+}));
 
-const ImgBox = styled("div")({
+const ImgBox = styled("div")(({ theme }) => ({
+    height: "520px",
+    borderRadius: "32px",
     display: "flex",
     width: "100%",
-    maxWidth: "400px",
     overflow: "hidden",
-    borderRadius: "32px",
-    color: "#f9f9f9",
+    flex: 1,
+    [theme.breakpoints.down("sm")]: {
+        height: "300px",
+    },
+}));
+
+const TextBox = styled("div")({
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    width: "100%",
 });
 
 const InfoBox = styled("div")({
@@ -29,20 +52,14 @@ const InfoBox = styled("div")({
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "flex-start",
-    // width: "100%",
-    height: "500px",
-    color: "#f9f9f9",
-});
-
-const StatusBox = styled("div")({
     width: "100%",
-    padding: "40px 0",
-    textAlign: "center",
-    color: "#f9f9f9",
+    height: "520px",
+    flex: 1,
 });
 
 const CityInfo = ({ photos = [], keyword = "" }) => {
     const today = useMemo(() => new Date().toISOString().split("T")[0].replace(/-/g, ""), []);
+
     const {
         data: exchangeRateData,
         isLoading: exchangeRateLoading,
@@ -58,100 +75,119 @@ const CityInfo = ({ photos = [], keyword = "" }) => {
         isLoading: weatherLoading,
         isError: weatherError,
     } = useGetWeatherQuery(capital || keyword);
+
+    const { data: aiDescription, isLoading: aiLoading, isError: aiError } = useGetCityDescriptionQuery(keyword);
+
     const currentWeather = weatherData?.weather?.[0]?.description || "-";
     const currentTemp = weatherData?.main?.temp;
     const feelsLike = weatherData?.main?.feels_like;
     const humidity = weatherData?.main?.humidity;
     const windSpeed = weatherData?.wind?.speed;
 
-    const isLoading = exchangeRateLoading || weatherLoading || countryLoading;
-    const hasError = exchangeRateError || weatherError || countryError;
+    const isLoading = exchangeRateLoading || weatherLoading || countryLoading || aiLoading;
+    const hasError = exchangeRateError || weatherError || countryError || aiError;
 
-    const exchangeRate = exchangeRateData?.rates?.USD;
-    const weather = weatherData || {};
-    console.log("쭈 weather", weather);
     const mainPhoto = photos?.[5] ?? photos?.[0];
 
     if (!mainPhoto) {
         return (
-            <StatusBox>
-                <Typography variant="body2" color="text.secondary">
-                    표시할 이미지가 없습니다.
-                </Typography>
-            </StatusBox>
+            <Box sx={{ padding: "8rem" }}>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+            </Box>
         );
     }
 
     if (isLoading) {
         return (
-            <StatusBox>
-                <Typography variant="body2" color="text.secondary">
-                    도시 정보를 불러오는 중입니다...
-                </Typography>
-            </StatusBox>
+            <Box sx={{ padding: "8rem" }}>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+            </Box>
         );
     }
 
     if (hasError) {
         return (
-            <StatusBox>
-                <Typography variant="body2" color="error">
-                    도시 정보를 불러오는 중 오류가 발생했습니다.
-                </Typography>
-            </StatusBox>
+            <Box sx={{ padding: "8rem" }}>
+                <CircularProgress sx={{ color: "#90cb47ff" }} />
+            </Box>
         );
     }
 
     return (
-        <Wrapper>
-            <ImgBox>
-                <img
-                    src={mainPhoto.src.medium}
-                    alt={mainPhoto.alt}
-                    style={{ display: "block", width: "100%", objectFit: "cover" }}
-                />
-            </ImgBox>
+        <Section>
+            <Wrapper>
+                <TextBox>
+                    <Typography
+                        component={"h2"}
+                        fontWeight={600}
+                        fontSize={"1.8rem"}
+                        width={"100%"}
+                        borderBottom="2px solid #e9e9e9"
+                        sx={{ mb: 3, pb: 1 }}
+                    >
+                        {keyword}을 소개합니다!
+                    </Typography>
+                    <Typography fontSize={"1rem"} sx={{ whiteSpace: "pre-line" }}>
+                        {aiDescription}
+                    </Typography>
+                </TextBox>
+            </Wrapper>
+            <Wrapper>
+                <ImgBox>
+                    <img
+                        src={mainPhoto.src.medium}
+                        alt={mainPhoto.alt}
+                        style={{ display: "block", width: "100%", objectFit: "cover" }}
+                    />
+                </ImgBox>
+                <InfoBox>
+                    <Box>
+                        <Typography variant="h6" fontSize={"1.2rem"} gutterBottom>
+                            나라 정보
+                        </Typography>
+                        <Typography fontSize={"1rem"}>이름: {country?.name?.common ?? "-"}</Typography>
+                        <Typography fontSize={"1rem"}>수도: {country?.capital ?? "-"}</Typography>
+                        <Typography fontSize={"1rem"}>
+                            인구: {country?.population ? country.population.toLocaleString() : "-"}
+                        </Typography>
+                        <Typography fontSize={"1rem"}>
+                            통화:{" "}
+                            {country?.currencies
+                                ? Object.entries(country.currencies)
+                                      .map(([, value]) => `${value.name} (${value.symbol})`)
+                                      .join(", ")
+                                : "-"}
+                        </Typography>
+                    </Box>
 
-            <InfoBox>
-                <div>
-                    <Typography variant="h6" gutterBottom>
-                        나라 정보
-                    </Typography>
-                    <Typography variant="body2">이름: {country?.name?.common ?? "-"}</Typography>
-                    <Typography variant="body2">수도: {country?.capital ?? "-"}</Typography>
-                    <Typography variant="body2">
-                        인구: {country?.population ? country.population.toLocaleString() : "-"}
-                    </Typography>
-                    <Typography variant="body2">
-                        통화: {country?.currencies ? Object.keys(country.currencies).join(", ") : "-"}
-                    </Typography>
-                </div>
+                    {/* <Box>
+                        <Typography variant="h6" fontSize={"1.2rem"} gutterBottom sx={{ mt: 3 }}>
+                            환율 정보
+                        </Typography>
+                        <Typography fontSize={"1rem"}>
+                            원화 10,000원 = {convertedAmount ? `${convertedAmount} ${currencySymbol}` : "-"}
+                        </Typography>
+                    </Box> */}
 
-                <div>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-                        환율 정보
-                    </Typography>
-                    <Typography variant="body2">
-                        원화 10,000원 = {exchangeRate ? (10000 / exchangeRate).toFixed(2) : "-"} USD
-                    </Typography>
-                </div>
-
-                <div>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-                        현재 날씨
-                    </Typography>
-                    <Typography variant="body2">상태: {currentWeather}</Typography>
-                    <Typography variant="body2">
-                        기온: {currentTemp !== undefined ? `${currentTemp.toFixed(1)}°C` : "-"}
-                    </Typography>
-                    <Typography variant="body2">
-                        체감: {feelsLike !== undefined ? `${feelsLike.toFixed(1)}°C` : "-"}
-                    </Typography>
-                    <Typography variant="body2">습도: {humidity !== undefined ? `${humidity}%` : "-"}</Typography>
-                    <Typography variant="body2">풍속: {windSpeed !== undefined ? `${windSpeed} m/s` : "-"}</Typography>
-                </div>
-            </InfoBox>
-        </Wrapper>
+                    <Box>
+                        <Typography variant="h6" fontSize={"1.2rem"} gutterBottom sx={{ mt: 3 }}>
+                            현재 날씨
+                        </Typography>
+                        <Typography fontSize={"1rem"}>상태: {currentWeather}</Typography>
+                        <Typography fontSize={"1rem"}>
+                            기온: {currentTemp !== undefined ? `${currentTemp.toFixed(1)}°C` : "-"}
+                        </Typography>
+                        <Typography fontSize={"1rem"}>
+                            체감: {feelsLike !== undefined ? `${feelsLike.toFixed(1)}°C` : "-"}
+                        </Typography>
+                        <Typography fontSize={"1rem"}>습도: {humidity !== undefined ? `${humidity}%` : "-"}</Typography>
+                        <Typography fontSize={"1rem"}>
+                            풍속: {windSpeed !== undefined ? `${windSpeed} m/s` : "-"}
+                        </Typography>
+                    </Box>
+                </InfoBox>
+            </Wrapper>
+        </Section>
     );
 };
 
