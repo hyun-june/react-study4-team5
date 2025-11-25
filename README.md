@@ -8,9 +8,9 @@
 
 ## 링크
 
-- [배포](https://travelnow2025.netlify.app/)
+- [TravelNow](https://travelnow2025.netlify.app/)
 - [Figma](https://www.figma.com/design/ExvgxzsiLglcdW0iRWgS8D/%EB%A6%AC%EC%95%A1%ED%8A%B8-4%EA%B8%B0-5%EC%A1%B0?node-id=0-1&p=f&t=2qNgRmpgYR4AWUy2-0)
-- [테스트 배포(dev 브랜치)](https://travelnowtest.netlify.app/)
+- ~~[테스트 배포(dev 브랜치)](https://travelnowtest.netlify.app/)~~
   <br/><br/>
 
 ## 프로젝트 소개
