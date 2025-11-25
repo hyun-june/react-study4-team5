@@ -414,7 +414,6 @@
         <ul>
           <li>카드 로딩 및 동일한 카드 랜더 -> 이미지 없으면 기본 이미지 넣으면 좋을듯
 </li>
-
         </ul>
         </li>
             <li>Detail(현정님)
@@ -440,7 +439,7 @@
         </ul>
         </div>
     </details>
-
+</details>
 </details>
 
 <br/>
